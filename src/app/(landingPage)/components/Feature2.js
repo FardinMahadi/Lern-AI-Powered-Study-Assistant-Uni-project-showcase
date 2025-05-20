@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ImArrowUpRight2 } from "react-icons/im";
+import SimpleParallax from "simple-parallax-js";
 
 const Feature2 = () => {
   return (
@@ -34,14 +35,16 @@ const Feature2 = () => {
         </div>
 
         <div className="w-full md:w-1/2 max-w-md">
-          <Image
-            src="/aiteacher.webp"
-            alt="AI Teacher illustration"
-            width={500}
-            height={500}
-            className="w-full h-auto"
-            priority
-          />
+          <SimpleParallax>
+            <Image
+              src="/aiteacher.webp"
+              alt="AI Teacher illustration"
+              width={500}
+              height={500}
+              className="w-full h-auto"
+              priority
+            />
+          </SimpleParallax>
         </div>
       </motion.div>
     </section>
