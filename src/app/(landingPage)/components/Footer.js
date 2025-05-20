@@ -5,6 +5,7 @@ import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
 import Image from "next/image";
 
 import "./styles/Particles.css";
+import ShinyText from "./ShinyText";
 
 const Footer = () => {
   return (
@@ -63,8 +64,24 @@ const Footer = () => {
           </div>
           <div>
             <h3 className="text-white text-lg font-semibold mb-4">Contact</h3>
-            <p className="text-sm">Email: support@lern.com</p>
-            <p className="text-sm">Phone: +1 (555) 123-4567</p>
+            <p className="text-sm">
+              Email:{" "}
+              <ShinyText
+                text="mahadihasanfardin2015@gmail.com"
+                disabled={false}
+                speed={3}
+                className="custom-class"
+              />
+            </p>
+            <p className="text-sm">
+              Phone:{" "}
+              <ShinyText
+                text="+88 01540159331"
+                disabled={false}
+                speed={3}
+                className="custom-class"
+              />
+            </p>
           </div>
         </div>
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">

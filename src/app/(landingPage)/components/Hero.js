@@ -14,7 +14,7 @@ import "./styles/RotatingText.css";
 
 const Hero = () => {
   return (
-    <div className="min-h-[85vh] py-20 flex flex-col justify-center items-center bg-gradient-to-b from-background to-background/80 relative">
+    <div className="min-h-[85vh] py-20 flex flex-col justify-center items-center bg-gradient-to-b from-background via-background/95 to-background/50 relative">
       <div className="absolute inset-0 z-0">
         <Squares
           speed={0.5}
