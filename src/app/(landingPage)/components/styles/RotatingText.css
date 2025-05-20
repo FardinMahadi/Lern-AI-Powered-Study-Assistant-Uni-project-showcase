@@ -34,3 +34,11 @@
 .text-rotate-space {
   white-space: pre;
 }
+
+/* Squares */
+.squares-canvas {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
