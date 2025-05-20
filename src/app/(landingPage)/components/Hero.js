@@ -18,8 +18,8 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <Squares
           speed={0.5}
-          squareSize={40}
-          direction="up"
+          squareSize={80}
+          direction="diagonal"
           borderColor="#1a1a1a"
           hoverFillColor="#2e2e2e"
         />
