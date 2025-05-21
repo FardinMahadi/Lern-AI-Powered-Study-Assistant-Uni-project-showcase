@@ -10,7 +10,7 @@ const Feature2 = () => {
   return (
     <section className="container mx-auto w-full py-16 px-6 md:px-20 bg-base-100 relative">
       <motion.div
-        className="flex flex-col md:flex-row items-center justify-between gap-10"
+        className="flex flex-col-reverse md:flex-row items-center justify-between gap-10"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}

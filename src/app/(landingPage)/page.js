@@ -15,13 +15,13 @@ const page = () => {
     <>
       <Header />
       <Hero />
-      <h1 className="text-6xl text-center mt-20">
+      <h1 className="text-4xl sm:text-6xl text-center mt-20">
         <DecryptedText speed={100} text="Features" animateOn="view" />
       </h1>
       <Feature1 />
       <Feature2 />
 
-      <h1 className="text-6xl text-center mt-20">
+      <h1 className="text-4xl sm:text-6xl text-center mt-20">
         <DecryptedText speed={100} text="Why Use Lern?" animateOn="view" />
       </h1>
       <CardStack />
