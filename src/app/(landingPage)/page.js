@@ -8,6 +8,7 @@ import Feature2 from "./components/Feature2";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import CardStack from "./components/CardStack";
 
 const page = () => {
   return (
@@ -23,7 +24,7 @@ const page = () => {
       <h1 className="text-6xl text-center mt-20">
         <DecryptedText speed={100} text="Why Use Lern?" animateOn="view" />
       </h1>
-
+      <CardStack />
       <Footer />
     </>
   );

@@ -13,7 +13,7 @@ const NotFound = () => {
         404
       </FuzzyText>
       <FuzzyText
-        fontSize="clamp(0.5rem, 2vw, 2rem)"
+        fontSize="clamp(1rem, 4vw, 4rem)"
         baseIntensity={0.2}
         hoverIntensity={0.5}
         enableHover={true}

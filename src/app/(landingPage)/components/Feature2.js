@@ -37,7 +37,7 @@ const Feature2 = () => {
         <div className="w-full md:w-1/2 max-w-md">
           <SimpleParallax>
             <Image
-              src="/aiteacher.webp"
+              src="/aiteacher.png"
               alt="AI Teacher illustration"
               width={500}
               height={500}

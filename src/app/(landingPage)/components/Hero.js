@@ -10,6 +10,7 @@ import {
   useRef,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { HiArrowRight } from "react-icons/hi";
 import "./styles/RotatingText.css";
 
 const Hero = () => {
@@ -63,6 +64,15 @@ const Hero = () => {
           progress, and achieve your goals with our intelligent learning
           platform.
         </motion.p>
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+          className="mt-8 px-8 py-3 font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:underline cursor-pointer"
+          onClick={() => (window.location.href = "/signup")}
+        >
+          Get Started <HiArrowRight className="inline-block ml-2" />
+        </motion.button>
       </div>
     </div>
   );

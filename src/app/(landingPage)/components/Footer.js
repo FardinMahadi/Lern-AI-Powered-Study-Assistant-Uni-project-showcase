@@ -9,7 +9,7 @@ import ShinyText from "./ShinyText";
 
 const Footer = () => {
   return (
-    <footer className="text-gray-300 py-8 relative overflow-hidden">
+    <footer className="text-gray-300 py-8 relative overflow-x-hidden">
       <div className="h-full w-full absolute z-1">
         <Particles
           particleColors={["#ffffff", "#ffffff"]}
