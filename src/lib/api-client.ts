@@ -11,10 +11,7 @@ class APIClient {
     this.baseURL = baseURL;
   }
 
-  async request<T = any>(
-    endpoint: string,
-    options: RequestOptions = {}
-  ): Promise<T> {
+  async request<T = any>(endpoint: string, options: RequestOptions = {}): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
     const config = {
       headers: {
@@ -43,11 +40,7 @@ class APIClient {
     return this.request<T>(endpoint, { method: "GET", ...options });
   }
 
-  post<T = any>(
-    endpoint: string,
-    body: any,
-    options?: RequestOptions
-  ): Promise<T> {
+  post<T = any>(endpoint: string, body: any, options?: RequestOptions): Promise<T> {
     return this.request<T>(endpoint, {
       method: "POST",
       body: JSON.stringify(body),
@@ -55,11 +48,7 @@ class APIClient {
     });
   }
 
-  put<T = any>(
-    endpoint: string,
-    body: any,
-    options?: RequestOptions
-  ): Promise<T> {
+  put<T = any>(endpoint: string, body: any, options?: RequestOptions): Promise<T> {
     return this.request<T>(endpoint, {
       method: "PUT",
       body: JSON.stringify(body),

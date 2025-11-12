@@ -66,10 +66,7 @@ const CTA = () => {
 
       {/* Big screen */}
       <div className="hidden md:flex items-center space-x-4">
-        <Link
-          href="/login"
-          className="text-[#b5b5b5a4] hover:text-[rgb(181,181,181)] transition"
-        >
+        <Link href="/login" className="text-[#b5b5b5a4] hover:text-[rgb(181,181,181)] transition">
           Login
         </Link>
         <Link

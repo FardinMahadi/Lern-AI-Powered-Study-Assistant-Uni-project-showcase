@@ -21,9 +21,9 @@ const Feature2 = () => {
             🤖 Your Personal AI Study Buddy
           </h2>
           <p className="text-lg text-base-content/70 mb-6">
-            Lern comes with a built-in AI tutor that understands your notes and
-            helps you learn smarter. Ask questions, get explanations, and test
-            your understanding — all within your workspace.
+            Lern comes with a built-in AI tutor that understands your notes and helps you learn
+            smarter. Ask questions, get explanations, and test your understanding — all within your
+            workspace.
           </p>
 
           <Link

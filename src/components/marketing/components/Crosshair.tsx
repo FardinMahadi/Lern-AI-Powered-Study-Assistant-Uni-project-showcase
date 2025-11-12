@@ -83,24 +83,14 @@ const Crosshair = ({ color = "white", containerRef = null }: any) => {
         paused: true,
         onStart: () => {
           if (lineHorizontalRef.current && lineVerticalRef.current) {
-            (
-              lineHorizontalRef.current as any
-            ).style.filter = `url(#filter-noise-x)`;
-            (
-              lineVerticalRef.current as any
-            ).style.filter = `url(#filter-noise-y)`;
+            (lineHorizontalRef.current as any).style.filter = `url(#filter-noise-x)`;
+            (lineVerticalRef.current as any).style.filter = `url(#filter-noise-y)`;
           }
         },
         onUpdate: () => {
           if (filterXRef.current && filterYRef.current) {
-            (filterXRef.current as any).setAttribute(
-              "baseFrequency",
-              primitiveValues.turbulence
-            );
-            (filterYRef.current as any).setAttribute(
-              "baseFrequency",
-              primitiveValues.turbulence
-            );
+            (filterXRef.current as any).setAttribute("baseFrequency", primitiveValues.turbulence);
+            (filterYRef.current as any).setAttribute("baseFrequency", primitiveValues.turbulence);
           }
         },
         onComplete: () => {

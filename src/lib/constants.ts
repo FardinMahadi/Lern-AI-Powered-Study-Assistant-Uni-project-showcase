@@ -7,30 +7,42 @@ export const APP_VERSION = "1.0.0";
 
 export const ROUTES = {
   HOME: "/",
+  OVERVIEW: "/overview",
   CHAT: "/chat",
   NOTES: "/notes",
   LOGIN: "/login",
   SIGNUP: "/signup",
-  DASHBOARD: "/overview",
   SETTINGS: "/settings",
 };
 
 export const AI_MODELS: AIModel[] = [
-  { id: "gpt-4", name: "GPT-4", provider: "OpenAI" },
-  { id: "gpt-3.5-turbo", name: "GPT-3.5 Turbo", provider: "OpenAI" },
-  { id: "claude-3-opus", name: "Claude 3 Opus", provider: "Anthropic" },
-  { id: "claude-3-sonnet", name: "Claude 3 Sonnet", provider: "Anthropic" },
-  { id: "gemini-pro", name: "Gemini Pro", provider: "Google" },
-  { id: "llama-3", name: "Llama 3", provider: "Meta" },
+  {
+    id: "openai/gpt-oss-20b",
+    name: "GPT-OSS 20B",
+    provider: "Groq",
+    description: "Fast open-source 20B parameter model hosted on Groq.",
+  },
+  {
+    id: "mixtral-8x7b-32768",
+    name: "Mixtral 8x7B",
+    provider: "Groq",
+    description: "Mixture of experts model optimized for long-form reasoning.",
+  },
+  {
+    id: "llama-3.1-70b-versatile",
+    name: "Llama 3.1 70B",
+    provider: "Groq",
+    description: "Balanced quality and speed for general-purpose chat.",
+  },
+  {
+    id: "llama-3.1-8b-instant",
+    name: "Llama 3.1 8B",
+    provider: "Groq",
+    description: "Lightweight low-latency model for quick iterations.",
+  },
 ];
 
-export const NOTE_CATEGORIES: string[] = [
-  "General",
-  "Study",
-  "Work",
-  "Personal",
-  "Research",
-];
+export const NOTE_CATEGORIES: string[] = ["General", "Study", "Work", "Personal", "Research"];
 
 export const COLORS = {
   primary: "#ffffff",

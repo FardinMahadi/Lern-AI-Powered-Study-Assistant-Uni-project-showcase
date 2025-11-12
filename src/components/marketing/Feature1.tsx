@@ -22,10 +22,7 @@ const Feature1 = () => {
         transition={{ duration: 1, ease: "easeOut" }}
       >
         <div className="w-full md:w-1/2 max-w-md">
-          <Lottie
-            animationData={require("@/../public/note.json")}
-            loop={true}
-          />
+          <Lottie animationData={require("@/../public/note.json")} loop={true} />
         </div>
 
         <div className="max-w-xl">
@@ -33,9 +30,8 @@ const Feature1 = () => {
             ✍️ Smart Notes with AI
           </h2>
           <p className="text-lg text-base-content/70 mb-6">
-            Forget messy notebooks. Lern structures your knowledge as you type.
-            With real-time AI assistance, your notes are organized, searchable,
-            and smart.
+            Forget messy notebooks. Lern structures your knowledge as you type. With real-time AI
+            assistance, your notes are organized, searchable, and smart.
           </p>
 
           <Link

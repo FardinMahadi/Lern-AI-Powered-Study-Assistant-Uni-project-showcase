@@ -1,32 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
+import groqClient from "@/lib/groqClient";
+import { ChatRequest, ChatResponse } from "@/types/api";
 
-// POST /api/chat
+const DEFAULT_MODEL = "openai/gpt-oss-20b";
+
 export async function POST(request: NextRequest) {
   try {
-    const { messages, model } = await request.json();
+    const { messages, model }: ChatRequest = await request.json();
 
-    // TODO: Implement actual AI API integration
-    // Example for OpenAI:
-    // const response = await openai.chat.completions.create({
-    //   model: model || 'gpt-4',
-    //   messages: messages,
-    // });
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json({ error: "Messages array is required" }, { status: 400 });
+    }
 
-    // Simulated response
-    const aiResponse = {
-      id: Date.now(),
+    const completion = await groqClient.chat.completions.create({
+      model: model || DEFAULT_MODEL,
+      messages: messages.map((message) => ({
+        role: message.role,
+        content: message.content,
+      })),
+    });
+
+    const choice = completion.choices[0]?.message?.content?.trim();
+
+    if (!choice) {
+      console.warn("Groq completion did not contain message content", completion);
+      return NextResponse.json({ error: "No content returned from Groq" }, { status: 502 });
+    }
+
+    const aiResponse: ChatResponse = {
+      id: completion.id,
       role: "assistant",
-      content: `This is a simulated response from ${model}. Implement actual AI integration in this route.`,
-      model: model,
-      timestamp: new Date().toISOString(),
+      content: choice,
+      model: completion.model,
+      timestamp: new Date(completion.created * 1000).toISOString(),
     };
 
     return NextResponse.json(aiResponse);
   } catch (error) {
     console.error("Chat API Error:", error);
-    return NextResponse.json(
-      { error: "Failed to process chat request" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to process chat request" }, { status: 500 });
   }
 }

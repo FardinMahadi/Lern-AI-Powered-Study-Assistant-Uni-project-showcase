@@ -50,4 +50,3 @@ export type NoteCategory = "General" | "Study" | "Work" | "Personal" | "Research
 export type MessageRole = "user" | "assistant" | "system";
 
 export type ToastType = "info" | "success" | "warning" | "error";
-

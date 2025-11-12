@@ -18,9 +18,7 @@ const Header = () => {
               height={32}
               className="h-8 w-8 transition-transform duration-300 group-hover:scale-110"
             />
-            <span className="text-2xl font-bold text-white hover:text-muted-light">
-              Lern
-            </span>
+            <span className="text-2xl font-bold text-white hover:text-muted-light">Lern</span>
             <sup className="px-3 text-xs font-semibold border border-accent hover:border-accent-light text-accent rounded-full bg-gradient-to-r from-accent/10 to-accent-light/10 shadow-[0_0_8px_rgba(255,255,255,0.2)] transition-all duration-300 scale-75">
               Beta
             </sup>

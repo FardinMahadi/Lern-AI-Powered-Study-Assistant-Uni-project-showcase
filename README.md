@@ -1,21 +1,94 @@
-# <img src="./public/logo.png" alt="Lern Logo" height="40" /> Lern – AI-Powered Study Assistant
+# Lern – AI-Powered Study Assistant
 
-**Lern** is a modern, minimalist AI-powered study assistant built to help students take notes, interact with a smart tutor, and manage their learning effectively.
-
----
-
-## 🚀 Project Overview
-
-Lern provides:
-
-- 🧠 An AI assistant to help explain, summarize, quiz, or generate study materials
-- 📝 A powerful, clean note-taking dashboard
-- 🔐 User authentication to manage personal data securely
-- 💡 A modern UI that feels fast, elegant, and responsive
+**Lern** is a modern, full-stack AI-powered study assistant built with Next.js, Material-UI, Firebase, and Groq AI. It provides intelligent conversational learning with persistent conversation storage.
 
 ---
 
-## 🧩 Core Components
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- PostgreSQL 14+
+- Firebase project
+- Groq API key
+
+### Setup
+
+1. **Clone & Install**
+
+   ```bash
+   git clone <repo>
+   cd lern
+   pnpm install
+   ```
+
+2. **Configure Environment Variables**
+
+   Create `.env.local` in project root with:
+
+   ```bash
+   # Firebase (from https://console.firebase.google.com)
+   NEXT_PUBLIC_FIREBASE_API_KEY=your-key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+
+   # Groq API (from https://console.groq.com/keys)
+   GROQ_API_KEY=your-groq-key
+
+   # Backend
+   NEXT_PUBLIC_API_URL=http://localhost:3001/api
+   ```
+
+   📖 **Detailed Guide**: See [SETUP_ENV.md](./docs/SETUP_ENV.md)
+
+3. **Start Development**
+
+   ```bash
+   # Frontend (port 3000)
+   pnpm dev
+
+   # Backend (in another terminal)
+   cd src/server
+   npm install
+   npm run migrate  # First time only
+   npm run dev
+   ```
+
+4. **Access the App**
+   - Frontend: http://localhost:3000
+   - Backend: http://localhost:3001
+
+---
+
+## ✨ Features
+
+- 🧠 **AI Chat** - Multi-turn conversations with Groq AI
+- 🔐 **Firebase Auth** - Email/password authentication with tiers
+- 💬 **Conversations** - Persistent storage with PostgreSQL
+- 🎨 **Material-UI** - Modern, responsive design
+- 🌓 **Dark/Light Mode** - Theme toggle with localStorage persistence
+- 📱 **Responsive** - Mobile-first design
+- 🔄 **Real-time** - WebSocket-ready architecture
+
+---
+
+## 📚 Documentation
+
+| Document                                                      | Purpose                      |
+| ------------------------------------------------------------- | ---------------------------- |
+| [SETUP_ENV.md](./docs/SETUP_ENV.md)                           | Firebase & environment setup |
+| [FULL_STACK_GUIDE.md](./docs/FULL_STACK_GUIDE.md)             | Complete integration guide   |
+| [SERVER_SETUP.md](./docs/SERVER_SETUP.md)                     | Backend server setup         |
+| [IMPLEMENTATION_SUMMARY.md](./docs/IMPLEMENTATION_SUMMARY.md) | Technical details            |
+| [CLEANUP_SUMMARY.md](./docs/CLEANUP_SUMMARY.md)               | Project structure overview   |
+
+---
+
+## 🧩 Architecture
 
 ### 1️⃣ Landing Page
 

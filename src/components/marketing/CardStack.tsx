@@ -79,16 +79,7 @@ export default function CardStack() {
     </ReactLenis>
   );
 }
-export const Card = ({
-  i,
-  title,
-  description,
-  src,
-  color,
-  progress,
-  range,
-  targetScale,
-}: any) => {
+export const Card = ({ i, title, description, src, color, progress, range, targetScale }: any) => {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -97,10 +88,7 @@ export const Card = ({
   const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
   const scale = useTransform(progress, range, [1, targetScale]);
   return (
-    <div
-      ref={container}
-      className="h-screen flex items-center justify-center sticky top-0 my-10 "
-    >
+    <div ref={container} className="h-screen flex items-center justify-center sticky top-0 my-10 ">
       <motion.div
         style={{
           backgroundColor: color,
@@ -109,12 +97,8 @@ export const Card = ({
         }}
         className={`flex flex-col relative -top-[25%] h-[450px] w-[90%] md:w-[80%] lg:w-[70%] rounded-md p-5 md:p-10 origin-top`}
       >
-        <h2 className="text-xl md:text-2xl text-center font-semibold">
-          {title}
-        </h2>
-        <div
-          className={`flex flex-col md:flex-row h-full mt-5 gap-5 md:gap-10`}
-        >
+        <h2 className="text-xl md:text-2xl text-center font-semibold">{title}</h2>
+        <div className={`flex flex-col md:flex-row h-full mt-5 gap-5 md:gap-10`}>
           <div className={`w-full md:w-[40%] relative md:top-[10%]`}>
             <p className="text-sm md:text-base">{description}</p>
           </div>
@@ -122,10 +106,7 @@ export const Card = ({
           <div
             className={`relative w-full md:w-[60%] h-[250px] md:h-full rounded-lg overflow-hidden`}
           >
-            <motion.div
-              className={`w-full h-full`}
-              style={{ scale: imageScale }}
-            >
+            <motion.div className={`w-full h-full`} style={{ scale: imageScale }}>
               <Image fill src={src} alt="image" className="object-cover" />
             </motion.div>
           </div>

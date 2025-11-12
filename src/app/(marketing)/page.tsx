@@ -97,9 +97,7 @@ function DecryptedText({
   const [displayText, setDisplayText] = useState(text);
   const [isHovering, setIsHovering] = useState(false);
   const [isScrambling, setIsScrambling] = useState(false);
-  const [revealedIndices, setRevealedIndices] = useState<Set<number>>(
-    new Set()
-  );
+  const [revealedIndices, setRevealedIndices] = useState<Set<number>>(new Set());
   const [hasAnimated, setHasAnimated] = useState(false); // for "view" mode
   const containerRef = useRef<HTMLSpanElement>(null);
 
@@ -117,14 +115,9 @@ function DecryptedText({
         case "center": {
           const middle = Math.floor(textLength / 2);
           const offset = Math.floor(revealedSet.size / 2);
-          const nextIndex =
-            revealedSet.size % 2 === 0 ? middle + offset : middle - offset - 1;
+          const nextIndex = revealedSet.size % 2 === 0 ? middle + offset : middle - offset - 1;
 
-          if (
-            nextIndex >= 0 &&
-            nextIndex < textLength &&
-            !revealedSet.has(nextIndex)
-          ) {
+          if (nextIndex >= 0 && nextIndex < textLength && !revealedSet.has(nextIndex)) {
             return nextIndex;
           }
 
@@ -142,10 +135,7 @@ function DecryptedText({
       ? Array.from(new Set(text.split(""))).filter((char) => char !== " ")
       : characters.split("");
 
-    const shuffleText = (
-      originalText: string,
-      currentRevealed: Set<number>
-    ): string => {
+    const shuffleText = (originalText: string, currentRevealed: Set<number>): string => {
       if (useOriginalCharsOnly) {
         const positions = originalText.split("").map((char, i) => ({
           char,
@@ -160,10 +150,7 @@ function DecryptedText({
 
         for (let i = nonSpaceChars.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
-          [nonSpaceChars[i], nonSpaceChars[j]] = [
-            nonSpaceChars[j],
-            nonSpaceChars[i],
-          ];
+          [nonSpaceChars[i], nonSpaceChars[j]] = [nonSpaceChars[j], nonSpaceChars[i]];
         }
 
         let charIndex = 0;
@@ -180,9 +167,7 @@ function DecryptedText({
           .map((char, i) => {
             if (char === " ") return " ";
             if (currentRevealed.has(i)) return originalText[i];
-            return availableChars[
-              Math.floor(Math.random() * availableChars.length)
-            ];
+            return availableChars[Math.floor(Math.random() * availableChars.length)];
           })
           .join("");
       }
@@ -254,10 +239,7 @@ function DecryptedText({
       threshold: 0.1,
     };
 
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
     const currentRef = containerRef.current;
     if (currentRef) {
       observer.observe(currentRef);
@@ -290,14 +272,10 @@ function DecryptedText({
 
       <span aria-hidden="true">
         {displayText.split("").map((char, index) => {
-          const isRevealedOrDone =
-            revealedIndices.has(index) || !isScrambling || !isHovering;
+          const isRevealedOrDone = revealedIndices.has(index) || !isScrambling || !isHovering;
 
           return (
-            <span
-              key={index}
-              className={isRevealedOrDone ? className : encryptedClassName}
-            >
+            <span key={index} className={isRevealedOrDone ? className : encryptedClassName}>
               {char}
             </span>
           );

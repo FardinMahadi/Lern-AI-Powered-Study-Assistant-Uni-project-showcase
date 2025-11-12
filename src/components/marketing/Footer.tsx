@@ -37,14 +37,10 @@ const Footer = () => {
               <h3 className="text-white text-lg font-semibold">Lern</h3>
               <sup className="p-2 border rounded-full scale-75">Beta</sup>
             </div>
-            <p className="text-sm">
-              Empowering learners worldwide with quality education.
-            </p>
+            <p className="text-sm">Empowering learners worldwide with quality education.</p>
           </div>
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">
-              Quick Links
-            </h3>
+            <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <a href="/about" className="hover:text-white">
@@ -239,10 +235,7 @@ const Particles: React.FC<ParticlesProps> = ({
     const positions = new Float32Array(count * 3);
     const randoms = new Float32Array(count * 4);
     const colors = new Float32Array(count * 3);
-    const palette =
-      particleColors && particleColors.length > 0
-        ? particleColors
-        : defaultColors;
+    const palette = particleColors && particleColors.length > 0 ? particleColors : defaultColors;
 
     for (let i = 0; i < count; i++) {
       let x: number, y: number, z: number, len: number;
@@ -254,10 +247,7 @@ const Particles: React.FC<ParticlesProps> = ({
       } while (len > 1 || len === 0);
       const r = Math.cbrt(Math.random());
       positions.set([x * r, y * r, z * r], i * 3);
-      randoms.set(
-        [Math.random(), Math.random(), Math.random(), Math.random()],
-        i * 4
-      );
+      randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
       const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
       colors.set(col, i * 3);
     }
@@ -339,7 +329,5 @@ const Particles: React.FC<ParticlesProps> = ({
     disableRotation,
   ]);
 
-  return (
-    <div ref={containerRef} className={`particles-container ${className}`} />
-  );
+  return <div ref={containerRef} className={`particles-container ${className}`} />;
 };

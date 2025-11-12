@@ -1,14 +1,18 @@
-// Firebase/Supabase Configuration
-// Uncomment and configure based on your choice
+import { FirebaseApp, FirebaseOptions, getApp, getApps, initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
-/*
-// For Firebase:
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+export const REQUIRED_FIREBASE_ENV_VARS = [
+  "NEXT_PUBLIC_FIREBASE_API_KEY",
+  "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN",
+  "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
+  "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET",
+  "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID",
+  "NEXT_PUBLIC_FIREBASE_APP_ID",
+] as const;
 
-const firebaseConfig = {
+const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -17,21 +21,37 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-*/
+const getMissingEnvVars = () => REQUIRED_FIREBASE_ENV_VARS.filter((key) => !process.env[key]);
 
-/*
-// For Supabase:
-import { createClient } from '@supabase/supabase-js';
+let firebaseApp: FirebaseApp | null = null;
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const ensureFirebaseApp = (): FirebaseApp => {
+  if (firebaseApp) {
+    return firebaseApp;
+  }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-*/
+  if (!getApps().length) {
+    const missing = getMissingEnvVars();
+    if (missing.length > 0) {
+      throw new Error(
+        `Firebase environment variables are missing: ${missing.join(
+          ", "
+        )}. Please populate them in your environment.`
+      );
+    }
 
-const config = {};
-export default config;
+    firebaseApp = initializeApp(firebaseConfig);
+  } else {
+    firebaseApp = getApp();
+  }
+
+  return firebaseApp;
+};
+
+export const getFirebaseApp = (): FirebaseApp => ensureFirebaseApp();
+export const getFirebaseAuth = () => getAuth(ensureFirebaseApp());
+export const getFirebaseFirestore = () => getFirestore(ensureFirebaseApp());
+export const getFirebaseStorage = () => getStorage(ensureFirebaseApp());
+
+export const getMissingFirebaseEnvVars = () => getMissingEnvVars();
+export const isFirebaseConfigured = () => getMissingEnvVars().length === 0;
