@@ -4,38 +4,37 @@ import { Message } from '@/types';
 import { ChatResponse } from '@/types/api';
 import { AI_MODELS } from '@/lib/constants';
 import apiClient from '@/lib/api/api-client';
-import { useState, useRef, useEffect } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import { useDashboardLayout } from '@/components/layout';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import { ChatEmptyState, ChatMessageList, ChatInputArea, StyledSelect } from '@/features/chat';
-import {
-  Box,
-  Container,
-  Stack,
-  Typography,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Tooltip,
-  IconButton,
-} from '@mui/material';
-
-const AUTO_HIDE_THRESHOLD = 6;
+import { Box, Stack, Tooltip, MenuItem, Container, IconButton, FormControl } from '@mui/material';
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
-  const [selectedModel, setSelectedModel] = useState(AI_MODELS[0].id);
+  const [selectedModel, setSelectedModel] = useState<string>(AI_MODELS[0]?.id || '');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const hasAutoHiddenRef = useRef(false);
   const { hideSidebar, showSidebar, sidebarVisible, collapsed, setCollapsed } =
     useDashboardLayout();
   const theme = useTheme();
+
+  // Auto-scroll to bottom when messages change
+  const scrollToBottom = useCallback(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading, scrollToBottom]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -44,19 +43,6 @@ export default function ChatPage() {
       setCollapsed(false);
     };
   }, [showSidebar, setCollapsed]);
-
-  // Auto-hide sidebar logic
-  useEffect(() => {
-    if (messages.length >= AUTO_HIDE_THRESHOLD && !hasAutoHiddenRef.current) {
-      hideSidebar();
-      hasAutoHiddenRef.current = true;
-    }
-
-    if (messages.length < AUTO_HIDE_THRESHOLD && hasAutoHiddenRef.current) {
-      showSidebar();
-      hasAutoHiddenRef.current = false;
-    }
-  }, [messages.length, hideSidebar, showSidebar]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -95,6 +81,7 @@ export default function ChatPage() {
     setMessages(updatedMessages);
     setInput('');
     setIsLoading(true);
+    setError(null);
 
     try {
       const response = await apiClient.post<ChatResponse>('/chat', {
@@ -105,25 +92,55 @@ export default function ChatPage() {
         model: selectedModel,
       });
 
+      if (!response || !response.content) {
+        throw new Error('Invalid response from server');
+      }
+
       const aiMessage: Message = {
-        id: response.id,
+        id: response.id ?? Date.now(),
         role: 'assistant',
         content: response.content,
-        model: response.model,
-        timestamp: new Date(response.timestamp),
+        model: response.model ?? selectedModel,
+        timestamp: response.timestamp ? new Date(response.timestamp) : new Date(),
       };
 
       setMessages(prev => [...prev, aiMessage]);
     } catch (error: unknown) {
       console.error('Failed to fetch AI response:', error);
-      const errorMessage: Message = {
+
+      let errorMessage = "Sorry, I couldn't reach the AI service right now. Please try again.";
+      let userFriendlyMessage = errorMessage;
+
+      if (error instanceof Error) {
+        const errorText = error.message.toLowerCase();
+
+        if (errorText.includes('rate limit') || errorText.includes('429')) {
+          userFriendlyMessage = 'The service is busy. Please wait a moment and try again.';
+        } else if (errorText.includes('401') || errorText.includes('unauthorized')) {
+          userFriendlyMessage = 'Authentication error. Please check your API configuration.';
+        } else if (errorText.includes('timeout') || errorText.includes('timed out')) {
+          userFriendlyMessage = 'Request timed out. The model may be processing. Please try again.';
+        } else if (errorText.includes('network') || errorText.includes('fetch')) {
+          userFriendlyMessage = 'Network error. Please check your connection and try again.';
+        } else if (errorText.includes('model')) {
+          userFriendlyMessage = 'Model unavailable. Please try a different model.';
+        } else {
+          userFriendlyMessage = error.message || errorMessage;
+        }
+
+        errorMessage = error.message;
+      }
+
+      setError(userFriendlyMessage);
+
+      const errorMessageObj: Message = {
         id: Date.now() + 1,
         role: 'assistant',
-        content: "Sorry, I couldn't reach the AI service right now. Please try again.",
+        content: `⚠️ ${userFriendlyMessage}`,
         model: selectedModel,
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages(prev => [...prev, errorMessageObj]);
     } finally {
       setIsLoading(false);
     }
@@ -146,6 +163,7 @@ export default function ChatPage() {
 
   const handleClearInput = () => {
     setInput('');
+    setError(null);
   };
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = e => {
@@ -172,17 +190,20 @@ export default function ChatPage() {
     >
       {/* Messages Container */}
       <Box
+        component="main"
+        role="main"
+        aria-label="Chat messages container"
         sx={{
           flexGrow: 1,
           overflow: 'auto',
-          pb: { xs: '180px', sm: '200px', md: '220px' },
-          pt: { xs: 8, md: 9 },
+          pb: { xs: '120px', sm: '130px', md: '140px' },
+          pt: { xs: 4, md: 5 },
         }}
       >
         <Container
-          maxWidth="lg"
+          maxWidth="md"
           sx={{
-            py: 3,
+            py: 1.5,
             color: theme.palette.text.primary,
           }}
         >
@@ -192,132 +213,119 @@ export default function ChatPage() {
               flexDirection: { xs: 'column', md: 'row' },
               alignItems: { xs: 'flex-start', md: 'center' },
               justifyContent: 'space-between',
-              gap: { xs: 2, md: 3 },
-              mb: { xs: 2.5, md: 3.5 },
+              gap: { xs: 1, md: 1.5 },
+              mb: { xs: 1.5, md: 2 },
             }}
           >
-            <Stack spacing={0.75} sx={{ minWidth: { xs: '100%', sm: 280 } }}>
-              <Typography
-                variant="overline"
+            <FormControl size="small" sx={{ minWidth: { xs: '100%', sm: 200 } }}>
+              <StyledSelect
+                id="active-model-select"
+                value={selectedModel}
+                onChange={e => setSelectedModel(e.target.value as string)}
+                aria-label="Select AI model"
+                displayEmpty
                 sx={{
-                  letterSpacing: '0.12em',
-                  color: alpha(theme.palette.text.secondary, 0.85),
+                  fontSize: '0.85rem',
+                  height: 36,
                 }}
-              >
-                Active Model
-              </Typography>
-              <FormControl size="small" fullWidth>
-                <InputLabel
-                  id="active-model-select-label"
-                  sx={{ color: alpha(theme.palette.text.secondary, 0.8) }}
-                >
-                  AI Model
-                </InputLabel>
-                <StyledSelect
-                  labelId="active-model-select-label"
-                  id="active-model-select"
-                  value={selectedModel}
-                  label="AI Model"
-                  onChange={e => setSelectedModel(e.target.value as string)}
-                  MenuProps={{
-                    PaperProps: {
-                      sx: {
-                        bgcolor: theme.palette.background.paper,
-                        border: `1px solid ${alpha(theme.palette.divider, 0.6)}`,
-                        '& .MuiMenuItem-root': {
-                          color: theme.palette.text.primary,
-                          fontSize: '0.9rem',
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      bgcolor: theme.palette.background.paper,
+                      border: `1px solid ${alpha(theme.palette.divider, 0.4)}`,
+                      '& .MuiMenuItem-root': {
+                        color: theme.palette.text.primary,
+                        fontSize: '0.85rem',
+                        py: 0.75,
+                        '&:hover': {
+                          bgcolor: alpha(theme.palette.text.primary, 0.06),
+                        },
+                        '&.Mui-selected': {
+                          bgcolor: alpha(theme.palette.primary.main, 0.12),
                           '&:hover': {
-                            bgcolor: alpha(theme.palette.text.primary, 0.06),
-                          },
-                          '&.Mui-selected': {
-                            bgcolor: alpha(theme.palette.primary.main, 0.12),
-                            '&:hover': {
-                              bgcolor: alpha(theme.palette.primary.main, 0.18),
-                            },
+                            bgcolor: alpha(theme.palette.primary.main, 0.18),
                           },
                         },
                       },
                     },
-                  }}
-                >
-                  {AI_MODELS.map(model => (
-                    <MenuItem key={model.id} value={model.id}>
-                      {model.name} • {model.provider}
-                    </MenuItem>
-                  ))}
-                </StyledSelect>
-              </FormControl>
-            </Stack>
+                  },
+                }}
+              >
+                {AI_MODELS.map(model => (
+                  <MenuItem key={model.id} value={model.id}>
+                    {model.name}
+                  </MenuItem>
+                ))}
+              </StyledSelect>
+            </FormControl>
 
             <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              spacing={{ xs: 1.25, sm: 2 }}
-              alignItems={{ xs: 'flex-start', sm: 'center' }}
-              sx={{ width: '100%', justifyContent: { sm: 'flex-end' } }}
+              direction="row"
+              spacing={0.5}
+              sx={{ justifyContent: { xs: 'flex-start', sm: 'flex-end' } }}
             >
-              <Typography
-                variant="body2"
-                sx={{ color: alpha(theme.palette.text.secondary, 0.9), letterSpacing: '0.01em' }}
+              <Tooltip
+                title={sidebarVisible ? 'Hide sidebar (Ctrl+B)' : 'Show sidebar (Ctrl+B)'}
+                arrow
               >
-                {messages.length} message{messages.length !== 1 ? 's' : ''}
-              </Typography>
-              <Stack direction="row" spacing={1}>
-                <Tooltip
-                  title={sidebarVisible ? 'Hide sidebar (Ctrl+B)' : 'Show sidebar (Ctrl+B)'}
-                  arrow
-                >
-                  <IconButton
-                    size="medium"
-                    color="inherit"
-                    onClick={() => (sidebarVisible ? hideSidebar() : showSidebar())}
-                    sx={{
-                      bgcolor: alpha(theme.palette.text.primary, 0.08),
+                <IconButton
+                  size="small"
+                  color="inherit"
+                  onClick={() => (sidebarVisible ? hideSidebar() : showSidebar())}
+                  aria-label={sidebarVisible ? 'Hide sidebar' : 'Show sidebar'}
+                  aria-keyshortcuts="Ctrl+B"
+                  sx={{
+                    bgcolor: alpha(theme.palette.text.primary, 0.06),
+                    color: alpha(theme.palette.text.primary, 0.7),
+                    width: 32,
+                    height: 32,
+                    transition: 'all 0.2s ease-in-out',
+                    '&:hover': {
+                      bgcolor: alpha(theme.palette.text.primary, 0.12),
                       color: theme.palette.text.primary,
+                    },
+                  }}
+                >
+                  {sidebarVisible ? (
+                    <MenuOpenRoundedIcon sx={{ fontSize: 18 }} />
+                  ) : (
+                    <MenuRoundedIcon sx={{ fontSize: 18 }} />
+                  )}
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} arrow>
+                <span>
+                  <IconButton
+                    size="small"
+                    color="inherit"
+                    onClick={() => setCollapsed(!collapsed)}
+                    disabled={!sidebarVisible}
+                    aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                    aria-disabled={!sidebarVisible}
+                    sx={{
+                      bgcolor: alpha(theme.palette.text.primary, 0.06),
+                      color: alpha(theme.palette.text.primary, 0.7),
+                      width: 32,
+                      height: 32,
                       transition: 'all 0.2s ease-in-out',
                       '&:hover': {
-                        bgcolor: alpha(theme.palette.text.primary, 0.16),
-                        transform: 'scale(1.05)',
+                        bgcolor: alpha(theme.palette.text.primary, 0.12),
+                        color: theme.palette.text.primary,
+                      },
+                      '&.Mui-disabled': {
+                        bgcolor: alpha(theme.palette.text.primary, 0.04),
+                        color: alpha(theme.palette.text.primary, 0.25),
                       },
                     }}
                   >
-                    {sidebarVisible ? (
-                      <MenuOpenRoundedIcon fontSize="small" />
+                    {collapsed ? (
+                      <ChevronRightRoundedIcon sx={{ fontSize: 18 }} />
                     ) : (
-                      <MenuRoundedIcon fontSize="small" />
+                      <ChevronLeftRoundedIcon sx={{ fontSize: 18 }} />
                     )}
                   </IconButton>
-                </Tooltip>
-                <Tooltip title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} arrow>
-                  <span>
-                    <IconButton
-                      size="medium"
-                      color="inherit"
-                      onClick={() => setCollapsed(!collapsed)}
-                      disabled={!sidebarVisible}
-                      sx={{
-                        bgcolor: alpha(theme.palette.text.primary, 0.08),
-                        color: theme.palette.text.primary,
-                        transition: 'all 0.2s ease-in-out',
-                        '&:hover': {
-                          bgcolor: alpha(theme.palette.text.primary, 0.16),
-                          transform: 'scale(1.05)',
-                        },
-                        '&.Mui-disabled': {
-                          bgcolor: alpha(theme.palette.text.primary, 0.06),
-                          color: alpha(theme.palette.text.primary, 0.3),
-                        },
-                      }}
-                    >
-                      {collapsed ? (
-                        <ChevronRightRoundedIcon fontSize="small" />
-                      ) : (
-                        <ChevronLeftRoundedIcon fontSize="small" />
-                      )}
-                    </IconButton>
-                  </span>
-                </Tooltip>
-              </Stack>
+                </span>
+              </Tooltip>
             </Stack>
           </Box>
 

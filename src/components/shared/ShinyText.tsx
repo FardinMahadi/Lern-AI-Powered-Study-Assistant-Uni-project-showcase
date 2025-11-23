@@ -1,10 +1,10 @@
-import "./styles/ShinyText.css";
+import './styles/ShinyText.css';
 
 const ShinyText = ({
   text,
   disabled = false,
   speed = 5,
-  className = "",
+  className = '',
 }: {
   text: string;
   disabled: boolean;
@@ -14,12 +14,12 @@ const ShinyText = ({
   const animationDuration = `${speed}s`;
 
   return (
-    <div
-      className={`shiny-text ${disabled ? "disabled" : ""} ${className}`}
+    <span
+      className={`shiny-text ${disabled ? 'disabled' : ''} ${className}`}
       style={{ animationDuration }}
     >
       {text}
-    </div>
+    </span>
   );
 };
 

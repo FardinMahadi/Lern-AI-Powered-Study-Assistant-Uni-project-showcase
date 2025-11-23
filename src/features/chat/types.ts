@@ -1,6 +1,6 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { Message } from "@/types";
+import { Message } from '@/types';
 
 export interface ChatEmptyStateProps {
   selectedModel: string;
@@ -24,7 +24,13 @@ export interface ChatMessageListProps {
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export type CodeProps = ComponentPropsWithoutRef<"code"> & {
+export interface ChatError {
+  message: string;
+  code?: string;
+  retryable?: boolean;
+}
+
+export type CodeProps = ComponentPropsWithoutRef<'code'> & {
   inline?: boolean;
   className?: string;
   children?: ReactNode;
