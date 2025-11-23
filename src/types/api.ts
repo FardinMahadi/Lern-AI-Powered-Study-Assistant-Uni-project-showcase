@@ -46,3 +46,13 @@ export interface AIGenerateResponse {
   model: string;
   timestamp: string;
 }
+
+export interface Suggestion {
+  label: string;
+  prompt: string;
+  icon?: string;
+}
+
+export interface SuggestionsResponse {
+  suggestions: Suggestion[];
+}

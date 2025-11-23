@@ -28,7 +28,8 @@ Follow these steps:
 
 ## Step 2: Create `.env.local`
 
-In the project root (`E:\Development\Projects\Web\Project-Showcase\lern\`), create a `.env.local` file:
+In the project root (`E:\Development\Projects\Web\Project-Showcase\lern\`),
+create a `.env.local` file:
 
 ```bash
 # Firebase Configuration
@@ -66,15 +67,13 @@ Your Firebase SDK config looks like:
 }
 ```
 
-Map to environment variables:
-| Firebase Field | Environment Variable |
-|---|---|
-| `apiKey` | `NEXT_PUBLIC_FIREBASE_API_KEY` |
-| `authDomain` | `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` |
-| `projectId` | `NEXT_PUBLIC_FIREBASE_PROJECT_ID` |
-| `storageBucket` | `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` |
-| `messagingSenderId` | `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` |
-| `appId` | `NEXT_PUBLIC_FIREBASE_APP_ID` |
+Map to environment variables: | Firebase Field | Environment Variable |
+|---|---| | `apiKey` | `NEXT_PUBLIC_FIREBASE_API_KEY` | | `authDomain` |
+`NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | | `projectId` |
+`NEXT_PUBLIC_FIREBASE_PROJECT_ID` | | `storageBucket` |
+`NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | | `messagingSenderId` |
+`NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | | `appId` |
+`NEXT_PUBLIC_FIREBASE_APP_ID` |
 
 ---
 
@@ -118,17 +117,31 @@ This file is in `.gitignore` to prevent exposing secrets.
 - `NEXT_PUBLIC_*` - Safe to expose (frontend)
 - `GROQ_API_KEY` - Backend only, should NOT be `NEXT_PUBLIC_`
 
-### Local Development Only
+### Local Development vs Production
 
-These variables are for local development. For production:
+**Local Development:**
 
-- Use your hosting platform's environment variable settings (Vercel, Netlify, etc.)
-- Never hardcode secrets
-- Use separate credentials per environment
+- Use `.env.local` file (as described above)
+- Never commit this file to git
+
+**Production (Vercel):**
+
+- Configure environment variables in Vercel dashboard
+- Go to: Project Settings → Environment Variables
+- Add all the same variables (Firebase + Groq API key)
+- Set for Production, Preview, and Development environments as needed
+
+**CI/CD (GitHub Actions):**
+
+- See [CI_CD_SETUP.md](./CI_CD_SETUP.md) for GitHub secrets configuration
+- CI workflow uses dummy values for build, actual deployment uses Vercel env
+  vars
 
 ---
 
 ## 📋 Checklist
+
+### Local Development
 
 - [ ] Firebase project created
 - [ ] Web app registered in Firebase
@@ -139,6 +152,21 @@ These variables are for local development. For production:
 - [ ] App loads without errors
 - [ ] Can sign up with email/password
 - [ ] Chat responds with AI
+
+### Production Deployment
+
+- [ ] Vercel project created and linked
+- [ ] Environment variables configured in Vercel dashboard
+- [ ] All Firebase variables added to Vercel
+- [ ] Groq API key added to Vercel
+- [ ] GitHub secrets configured (for CI/CD)
+  - [ ] `VERCEL_TOKEN` added to GitHub secrets
+  - [ ] `VERCEL_ORG_ID` added to GitHub secrets
+  - [ ] `VERCEL_PROJECT_ID` added to GitHub secrets (optional)
+- [ ] CI/CD workflow runs successfully
+- [ ] Production deployment works
+
+> 📖 **For detailed CI/CD setup**, see [CI_CD_SETUP.md](./CI_CD_SETUP.md)
 
 ---
 
@@ -171,17 +199,57 @@ These variables are for local development. For production:
 
 ---
 
+## Environment Variables Summary
+
+### Required Variables
+
+| Variable                                   | Description                  | Where to Set                                    |
+| ------------------------------------------ | ---------------------------- | ----------------------------------------------- |
+| `NEXT_PUBLIC_FIREBASE_API_KEY`             | Firebase API key             | `.env.local`, Vercel, GitHub Secrets (optional) |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | Firebase auth domain         | `.env.local`, Vercel, GitHub Secrets (optional) |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | Firebase project ID          | `.env.local`, Vercel, GitHub Secrets (optional) |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`      | Firebase storage bucket      | `.env.local`, Vercel, GitHub Secrets (optional) |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Firebase messaging sender ID | `.env.local`, Vercel, GitHub Secrets (optional) |
+| `NEXT_PUBLIC_FIREBASE_APP_ID`              | Firebase app ID              | `.env.local`, Vercel, GitHub Secrets (optional) |
+| `GROQ_API_KEY`                             | Groq AI API key              | `.env.local`, Vercel                            |
+| `NEXT_PUBLIC_API_URL`                      | Backend API URL              | `.env.local`, Vercel                            |
+
+### CI/CD Secrets (GitHub Actions)
+
+| Secret              | Description                 | Required    |
+| ------------------- | --------------------------- | ----------- |
+| `VERCEL_TOKEN`      | Vercel authentication token | ✅ Yes      |
+| `VERCEL_ORG_ID`     | Vercel organization/team ID | ✅ Yes      |
+| `VERCEL_PROJECT_ID` | Vercel project ID           | ⚠️ Optional |
+
+> **Note:** Environment variables for builds can be added as GitHub secrets, but
+> production deployments should use Vercel's environment variables.
+
 ## File Structure
 
 ```
 lern/
 ├── .env.local           ← CREATE THIS (local only, not in git)
 ├── .gitignore           ← Already ignores .env.local
+├── .github/
+│   └── workflows/
+│       └── ci.yml       ← CI/CD workflow
+├── docs/
+│   ├── SETUP_ENV.md     ← This file
+│   └── CI_CD_SETUP.md  ← CI/CD setup guide
 └── src/
     ├── lib/firebase/config.ts  ← Reads env variables
     └── ...
 ```
 
 ---
+
+## 🚀 Next Steps
+
+1. **Local Development**: Follow the steps above to set up `.env.local`
+2. **Production Deployment**:
+   - Configure environment variables in Vercel dashboard
+   - See [CI_CD_SETUP.md](./CI_CD_SETUP.md) for GitHub Actions setup
+3. **CI/CD**: Set up GitHub secrets for automated deployments
 
 **Status**: Follow this guide to get your app running! 🚀

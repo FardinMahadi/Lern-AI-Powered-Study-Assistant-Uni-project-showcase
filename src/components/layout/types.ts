@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface DashboardLayoutProps {
   children: ReactNode;
@@ -18,4 +18,5 @@ export interface DashboardLayoutContextValue {
   showSidebar: () => void;
   hideSidebar: () => void;
   setCollapsed: (collapsed: boolean) => void;
+  toggleCollapse?: () => void;
 }

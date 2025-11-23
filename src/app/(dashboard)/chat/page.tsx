@@ -6,9 +6,7 @@ import { AI_MODELS } from '@/lib/constants';
 import apiClient from '@/lib/api/api-client';
 import { alpha, useTheme } from '@mui/material/styles';
 import { useDashboardLayout } from '@/components/layout';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { useState, useRef, useEffect, useCallback } from 'react';
-import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import { ChatEmptyState, ChatMessageList, ChatInputArea, StyledSelect } from '@/features/chat';
@@ -20,8 +18,7 @@ export default function ChatPage() {
   const [selectedModel, setSelectedModel] = useState<string>(AI_MODELS[0]?.id || '');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { hideSidebar, showSidebar, sidebarVisible, collapsed, setCollapsed } =
-    useDashboardLayout();
+  const { toggleCollapse, collapsed, setCollapsed } = useDashboardLayout();
   const theme = useTheme();
 
   // Auto-scroll to bottom when messages change
@@ -38,21 +35,20 @@ export default function ChatPage() {
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      showSidebar();
       setCollapsed(false);
     };
-  }, [showSidebar, setCollapsed]);
+  }, [setCollapsed]);
 
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Ctrl+B for sidebar toggle
+      // Ctrl+B for sidebar collapse/expand toggle
       if (e.ctrlKey && e.key === 'b') {
         e.preventDefault();
-        if (sidebarVisible) {
-          hideSidebar();
+        if (toggleCollapse) {
+          toggleCollapse();
         } else {
-          showSidebar();
+          setCollapsed(!collapsed);
         }
       }
       // Escape to clear input
@@ -63,7 +59,7 @@ export default function ChatPage() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [sidebarVisible, input, isLoading, hideSidebar, showSidebar]);
+  }, [collapsed, input, isLoading, toggleCollapse, setCollapsed]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -260,14 +256,20 @@ export default function ChatPage() {
               sx={{ justifyContent: { xs: 'flex-start', sm: 'flex-end' } }}
             >
               <Tooltip
-                title={sidebarVisible ? 'Hide sidebar (Ctrl+B)' : 'Show sidebar (Ctrl+B)'}
+                title={collapsed ? 'Expand sidebar (Ctrl+B)' : 'Collapse sidebar (Ctrl+B)'}
                 arrow
               >
                 <IconButton
                   size="small"
                   color="inherit"
-                  onClick={() => (sidebarVisible ? hideSidebar() : showSidebar())}
-                  aria-label={sidebarVisible ? 'Hide sidebar' : 'Show sidebar'}
+                  onClick={() => {
+                    if (toggleCollapse) {
+                      toggleCollapse();
+                    } else {
+                      setCollapsed(!collapsed);
+                    }
+                  }}
+                  aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                   aria-keyshortcuts="Ctrl+B"
                   sx={{
                     bgcolor: alpha(theme.palette.text.primary, 0.06),
@@ -281,45 +283,12 @@ export default function ChatPage() {
                     },
                   }}
                 >
-                  {sidebarVisible ? (
-                    <MenuOpenRoundedIcon sx={{ fontSize: 18 }} />
+                  {collapsed ? (
+                    <ChevronRightRoundedIcon sx={{ fontSize: 18 }} />
                   ) : (
-                    <MenuRoundedIcon sx={{ fontSize: 18 }} />
+                    <ChevronLeftRoundedIcon sx={{ fontSize: 18 }} />
                   )}
                 </IconButton>
-              </Tooltip>
-              <Tooltip title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} arrow>
-                <span>
-                  <IconButton
-                    size="small"
-                    color="inherit"
-                    onClick={() => setCollapsed(!collapsed)}
-                    disabled={!sidebarVisible}
-                    aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-                    aria-disabled={!sidebarVisible}
-                    sx={{
-                      bgcolor: alpha(theme.palette.text.primary, 0.06),
-                      color: alpha(theme.palette.text.primary, 0.7),
-                      width: 32,
-                      height: 32,
-                      transition: 'all 0.2s ease-in-out',
-                      '&:hover': {
-                        bgcolor: alpha(theme.palette.text.primary, 0.12),
-                        color: theme.palette.text.primary,
-                      },
-                      '&.Mui-disabled': {
-                        bgcolor: alpha(theme.palette.text.primary, 0.04),
-                        color: alpha(theme.palette.text.primary, 0.25),
-                      },
-                    }}
-                  >
-                    {collapsed ? (
-                      <ChevronRightRoundedIcon sx={{ fontSize: 18 }} />
-                    ) : (
-                      <ChevronLeftRoundedIcon sx={{ fontSize: 18 }} />
-                    )}
-                  </IconButton>
-                </span>
               </Tooltip>
             </Stack>
           </Box>

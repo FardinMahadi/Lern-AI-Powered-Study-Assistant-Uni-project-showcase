@@ -23,13 +23,13 @@ export function ChatInputArea({
   onKeyDown,
 }: ChatInputAreaProps) {
   const theme = useTheme();
-  const { sidebarVisible, collapsed } = useDashboardLayout();
+  const { collapsed } = useDashboardLayout();
   const charCount = input.length;
   const isNearLimit = charCount > MAX_CHARS * 0.8;
   const isOverLimit = charCount > MAX_CHARS;
 
-  // Calculate sidebar width dynamically
-  const sidebarWidth = sidebarVisible ? (collapsed ? COLLAPSED_WIDTH : DRAWER_WIDTH) : 0;
+  // Calculate sidebar width dynamically (always visible, only collapsed/expanded)
+  const sidebarWidth = collapsed ? COLLAPSED_WIDTH : DRAWER_WIDTH;
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;

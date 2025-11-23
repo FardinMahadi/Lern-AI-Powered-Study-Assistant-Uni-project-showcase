@@ -18,15 +18,25 @@ class APIClient {
 
   async request<T = unknown>(endpoint: string, options: RequestOptions = {}): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
-    const config = {
+
+    // Create AbortController for timeout if no signal provided
+    let abortController: AbortController | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    if (!options.signal) {
+      abortController = new AbortController();
+      timeoutId = setTimeout(() => {
+        abortController?.abort();
+      }, 60000); // 60 second timeout
+    }
+
+    const config: RequestInit = {
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
       },
       ...options,
-      signal:
-        options.signal ||
-        (typeof AbortSignal !== 'undefined' ? AbortSignal.timeout(60000) : undefined),
+      signal: options.signal || abortController?.signal,
     };
 
     try {
@@ -53,8 +63,18 @@ class APIClient {
         throw error;
       }
 
+      // Clear timeout on successful response
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
       return data;
     } catch (error) {
+      // Clear timeout on error
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
       if (error instanceof Error) {
         // Preserve error details
         const apiError = error as APIError;
