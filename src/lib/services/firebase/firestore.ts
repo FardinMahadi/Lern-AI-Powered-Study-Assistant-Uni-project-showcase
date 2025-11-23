@@ -11,9 +11,9 @@ import {
   QueryConstraint,
   setDoc,
   updateDoc,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 
-import { getFirebaseFirestore } from "./config";
+import { getFirebaseFirestore } from './config';
 
 const db = () => getFirebaseFirestore();
 
@@ -45,8 +45,8 @@ export const updateDocument = async <T extends DocumentData>(
   id: string,
   data: Partial<T>
 ) => {
-  const docRef = doc(db(), collectionPath, id);
-  await updateDoc(docRef, data);
+  const docRef = doc(db(), collectionPath, id) as DocumentReference<T>;
+  await updateDoc(docRef, data as T);
 };
 
 export const deleteDocument = async (collectionPath: string, id: string) => {
@@ -60,5 +60,5 @@ export const queryDocuments = async <T extends DocumentData>(
 ): Promise<T[]> => {
   const result = query(collection(db(), collectionPath), ...constraints);
   const snapshot = await getDocs(result);
-  return snapshot.docs.map((docSnapshot) => docSnapshot.data() as T);
+  return snapshot.docs.map(docSnapshot => docSnapshot.data() as T);
 };

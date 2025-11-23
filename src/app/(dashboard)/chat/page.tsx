@@ -19,7 +19,6 @@ export default function ChatPage() {
   const [input, setInput] = useState('');
   const [selectedModel, setSelectedModel] = useState<string>(AI_MODELS[0]?.id || '');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { hideSidebar, showSidebar, sidebarVisible, collapsed, setCollapsed } =
     useDashboardLayout();
@@ -81,7 +80,6 @@ export default function ChatPage() {
     setMessages(updatedMessages);
     setInput('');
     setIsLoading(true);
-    setError(null);
 
     try {
       const response = await apiClient.post<ChatResponse>('/chat', {
@@ -131,8 +129,6 @@ export default function ChatPage() {
         errorMessage = error.message;
       }
 
-      setError(userFriendlyMessage);
-
       const errorMessageObj: Message = {
         id: Date.now() + 1,
         role: 'assistant',
@@ -163,7 +159,6 @@ export default function ChatPage() {
 
   const handleClearInput = () => {
     setInput('');
-    setError(null);
   };
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = e => {

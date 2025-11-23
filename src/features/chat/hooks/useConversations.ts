@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import { conversationAPI } from "@/lib/api/server-client";
+import { useState, useCallback } from 'react';
+import { conversationAPI } from '@/lib/api/server-client';
 
 interface Conversation {
   id: string;
@@ -20,25 +20,25 @@ export function useConversations() {
     try {
       setLoading(true);
       setError(null);
-      const data = await conversationAPI.list();
+      const data = (await conversationAPI.list()) as Conversation[];
       setConversations(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch conversations");
+      setError(err instanceof Error ? err.message : 'Failed to fetch conversations');
     } finally {
       setLoading(false);
     }
   }, []);
 
   const createConversation = useCallback(
-    async (title: string = "New Conversation", model: string) => {
+    async (title: string = 'New Conversation', model: string) => {
       try {
         setLoading(true);
         setError(null);
-        const newConversation = await conversationAPI.create({ title, model });
-        setConversations((prev) => [newConversation, ...prev]);
+        const newConversation = (await conversationAPI.create({ title, model })) as Conversation;
+        setConversations(prev => [newConversation, ...prev]);
         return newConversation;
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "Failed to create conversation";
+        const errorMessage = err instanceof Error ? err.message : 'Failed to create conversation';
         setError(errorMessage);
         throw err;
       } finally {
@@ -51,13 +51,11 @@ export function useConversations() {
   const updateConversation = useCallback(async (id: string, title: string) => {
     try {
       setError(null);
-      const updated = await conversationAPI.update(id, { title });
-      setConversations((prev) =>
-        prev.map((conv) => (conv.id === id ? { ...conv, ...updated } : conv))
-      );
+      const updated = (await conversationAPI.update(id, { title })) as Conversation;
+      setConversations(prev => prev.map(conv => (conv.id === id ? { ...conv, ...updated } : conv)));
       return updated;
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update conversation");
+      setError(err instanceof Error ? err.message : 'Failed to update conversation');
       throw err;
     }
   }, []);
@@ -66,9 +64,9 @@ export function useConversations() {
     try {
       setError(null);
       await conversationAPI.delete(id);
-      setConversations((prev) => prev.filter((conv) => conv.id !== id));
+      setConversations(prev => prev.filter(conv => conv.id !== id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to delete conversation");
+      setError(err instanceof Error ? err.message : 'Failed to delete conversation');
       throw err;
     }
   }, []);
