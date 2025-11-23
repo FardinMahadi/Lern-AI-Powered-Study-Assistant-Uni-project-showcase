@@ -1,26 +1,32 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
-import { ImArrowUpRight2 } from "react-icons/im";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import SimpleParallax from "simple-parallax-js";
+import { ImArrowUpRight2 } from "react-icons/im";
 
 const Feature2 = () => {
   return (
-    <section className="container mx-auto w-full py-16 px-6 md:px-20 bg-base-100 relative">
+    <section className="container mx-auto w-full py-14 px-6 md:px-16 bg-base-100 relative">
       <motion.div
-        className="flex flex-col-reverse md:flex-row items-center justify-between gap-10"
+        className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-10"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
         <div className="max-w-xl">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 flex items-center gap-2">
+          <h2
+            className="font-semibold mb-3 flex items-center gap-2 tracking-tight text-balance"
+            style={{ fontSize: "var(--fs-display-sm)", lineHeight: "var(--lh-display)" }}
+          >
             🤖 Your Personal AI Study Buddy
           </h2>
-          <p className="text-lg text-base-content/70 mb-6">
+          <p
+            className="text-base-content/70 mb-5"
+            style={{ fontSize: "var(--fs-body)", lineHeight: "var(--lh-body)" }}
+          >
             Lern comes with a built-in AI tutor that understands your notes and helps you learn
             smarter. Ask questions, get explanations, and test your understanding — all within your
             workspace.
@@ -28,7 +34,7 @@ const Feature2 = () => {
 
           <Link
             href="/notes"
-            className="flex items-center gap-2 text-lg py-2 rounded-xl hover:underline"
+            className="flex items-center gap-2 text-base py-2 rounded-xl hover:underline font-medium"
           >
             Try AI Tutor <ImArrowUpRight2 />
           </Link>

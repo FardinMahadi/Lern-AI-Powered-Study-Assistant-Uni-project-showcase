@@ -1,13 +1,12 @@
 // General helper utilities
 
 export const cn = (...classes: (string | undefined | null | false)[]): string => {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 };
 
-export const sleep = (ms: number): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+export const sleep = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 
-export const debounce = <T extends (...args: any[]) => any>(
+export const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
@@ -22,12 +21,12 @@ export const debounce = <T extends (...args: any[]) => any>(
   };
 };
 
-export const throttle = <T extends (...args: any[]) => any>(
+export const throttle = <T extends (...args: unknown[]) => unknown>(
   func: T,
   limit: number
 ): ((...args: Parameters<T>) => void) => {
   let inThrottle: boolean;
-  return function (this: any, ...args: Parameters<T>) {
+  return function (this: unknown, ...args: Parameters<T>) {
     if (!inThrottle) {
       func.apply(this, args);
       inThrottle = true;
@@ -45,7 +44,7 @@ export const copyToClipboard = async (text: string): Promise<boolean> => {
     await navigator.clipboard.writeText(text);
     return true;
   } catch (err) {
-    console.error("Failed to copy:", err);
+    console.error('Failed to copy:', err);
     return false;
   }
 };

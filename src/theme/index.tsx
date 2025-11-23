@@ -1,15 +1,16 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { CssBaseline, PaletteMode } from "@mui/material";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import {
   ThemeProvider as MuiThemeProvider,
   Theme,
   createTheme,
   responsiveFontSizes,
 } from "@mui/material/styles";
-import { BRAND_COLORS, darkPalette, lightPalette } from "./palette";
+
 import { typography } from "./typography";
+import { BRAND_COLORS, darkPalette, lightPalette } from "./palette";
 
 export interface ColorModeContextValue {
   mode: PaletteMode;
@@ -144,6 +145,13 @@ export function AppThemeProvider({ initialMode = "light", children }: AppThemePr
       setMode(storedMode);
     }
   }, []);
+
+  // Sync data-theme attribute with mode
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-theme", mode);
+    }
+  }, [mode]);
 
   const handleSetMode = useCallback((nextMode: PaletteMode) => {
     setMode(nextMode);

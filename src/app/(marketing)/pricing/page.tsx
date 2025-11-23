@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckCircle, RocketLaunch } from "@mui/icons-material";
 import {
   Container,
   Box,
@@ -15,7 +16,6 @@ import {
   ListItemText,
   useTheme,
 } from "@mui/material";
-import { CheckCircle, RocketLaunch } from "@mui/icons-material";
 
 const tiers = [
   {

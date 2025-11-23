@@ -9,97 +9,147 @@ This project follows an industry-standard, feature-based architecture optimized 
 ```
 lern/
 ├── src/
-│   ├── app/                          # Next.js App Router
+│   ├── app/                          # Next.js App Router (routes only)
 │   │   ├── (auth)/                   # Auth route group
 │   │   │   ├── login/
 │   │   │   └── signup/
 │   │   ├── (marketing)/              # Public pages
-│   │   │   └── page.js               # Landing page
+│   │   │   ├── page.tsx              # Landing page
+│   │   │   ├── about/
+│   │   │   ├── features/
+│   │   │   └── pricing/
 │   │   ├── (dashboard)/              # Protected dashboard pages
 │   │   │   ├── chat/
+│   │   │   │   └── page.tsx
 │   │   │   ├── notes/
 │   │   │   ├── overview/
 │   │   │   └── settings/
 │   │   ├── api/                      # API Routes
-│   │   │   ├── chat/route.js
-│   │   │   ├── notes/route.js
-│   │   │   └── ai/generate/route.js
-│   │   ├── layout.js
+│   │   │   ├── chat/
+│   │   │   │   └── route.ts
+│   │   │   ├── notes/
+│   │   │   └── ai/generate/
+│   │   ├── layout.tsx
 │   │   └── globals.css
 │   │
-│   ├── features/                     # Feature modules
+│   ├── features/                     # Feature modules (self-contained)
 │   │   ├── chat/
-│   │   │   ├── components/
-│   │   │   ├── hooks/
-│   │   │   └── services/
-│   │   ├── notes/
-│   │   │   ├── components/
-│   │   │   ├── hooks/
-│   │   │   └── services/
+│   │   │   ├── components/           # Feature-specific components
+│   │   │   │   ├── ChatEmptyState.tsx
+│   │   │   │   ├── ChatInputArea.tsx
+│   │   │   │   ├── ChatMessageList.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/                # Feature-specific hooks
+│   │   │   │   └── useConversations.ts
+│   │   │   ├── context/              # Feature contexts
+│   │   │   │   └── ChatContext.tsx
+│   │   │   ├── services/             # Feature business logic
+│   │   │   │   └── chatService.ts
+│   │   │   ├── types.ts              # Feature-specific types
+│   │   │   ├── styles.ts             # Feature-specific styles
+│   │   │   └── index.ts              # Public API exports
+│   │   │
 │   │   ├── auth/
 │   │   │   ├── components/
 │   │   │   ├── hooks/
-│   │   │   └── context/
-│   │   └── ai/
-│   │       ├── providers/
-│   │       └── utils/
+│   │   │   ├── context/
+│   │   │   │   └── AuthContext.tsx
+│   │   │   ├── services/
+│   │   │   ├── types.ts
+│   │   │   └── index.ts
+│   │   │
+│   │   └── notes/                    # Future feature
+│   │       ├── components/
+│   │       ├── hooks/
+│   │       ├── services/
+│   │       ├── types.ts
+│   │       └── index.ts
 │   │
 │   ├── components/                   # Shared components
 │   │   ├── ui/                       # Generic UI components
-│   │   │   ├── Button.js
-│   │   │   ├── Input.js
-│   │   │   ├── Card.js
-│   │   │   ├── Modal.js
-│   │   │   └── Toast.js
+│   │   │   ├── Button.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── Modal.tsx
+│   │   │   └── Toast.tsx
+│   │   │
 │   │   ├── layout/                   # Layout components
-│   │   │   ├── Header.js
-│   │   │   ├── Footer.js
-│   │   │   └── Sidebar.js
+│   │   │   ├── DashboardLayout.tsx
+│   │   │   ├── navConfig.tsx
+│   │   │   ├── types.ts
+│   │   │   └── index.ts
+│   │   │
+│   │   └── shared/                   # Shared utility components
+│   │       ├── Markdown.tsx
+│   │       ├── decrypted-text.tsx
+│   │       ├── rotating-text.tsx
+│   │       ├── ShinyText.tsx
+│   │       └── styles/
+│   │
 │   │   └── marketing/                # Marketing components
-│   │       ├── Hero.js
-│   │       ├── Feature1.js
-│   │       ├── Feature2.js
-│   │       ├── CardStack.js
-│   │       ├── Footer.js
-│   │       └── Header.js
+│   │       ├── Hero.tsx
+│   │       ├── Feature1.tsx
+│   │       ├── Feature2.tsx
+│   │       ├── CardStack.tsx
+│   │       ├── Footer.tsx
+│   │       └── Header.tsx
 │   │
-│   ├── lib/                          # Shared utilities
-│   │   ├── firebase/                 # Firebase/Supabase config
-│   │   │   ├── config.js
-│   │   │   ├── auth.js
-│   │   │   └── firestore.js
-│   │   ├── utils/
-│   │   │   ├── formatters.js
-│   │   │   ├── validators.js
-│   │   │   └── helpers.js
-│   │   ├── constants.js
-│   │   └── api-client.js
+│   ├── lib/                          # Shared utilities & configs
+│   │   ├── api/                      # API clients
+│   │   │   ├── api-client.ts
+│   │   │   └── server-client.ts
+│   │   │
+│   │   ├── services/                 # External service integrations
+│   │   │   ├── firebase/
+│   │   │   │   ├── auth.ts
+│   │   │   │   ├── config.ts
+│   │   │   │   └── firestore.ts
+│   │   │   └── ai/
+│   │   │       └── groqClient.ts
+│   │   │
+│   │   ├── utils/                    # Utility functions
+│   │   │   ├── formatters.ts
+│   │   │   ├── validators.ts
+│   │   │   └── helpers.ts
+│   │   │
+│   │   └── constants.ts
 │   │
-│   ├── hooks/                        # Global custom hooks
-│   │   ├── useMediaQuery.js
-│   │   ├── useLocalStorage.js
-│   │   └── useDebounce.js
+│   ├── hooks/                        # Global shared hooks only
+│   │   ├── useMediaQuery.ts
+│   │   ├── useLocalStorage.ts
+│   │   └── useDebounce.ts
 │   │
 │   ├── store/                        # State management (Zustand)
 │   │   ├── slices/
-│   │   │   ├── authSlice.js
-│   │   │   ├── notesSlice.js
-│   │   │   └── chatSlice.js
-│   │   └── index.js
+│   │   │   ├── authSlice.ts
+│   │   │   ├── notesSlice.ts
+│   │   │   └── chatSlice.ts
+│   │   └── index.ts
+│   │
+│   ├── types/                        # Global shared types only
+│   │   ├── api.ts
+│   │   ├── index.ts
+│   │   └── shared/
+│   │       └── components.ts
+│   │
+│   ├── theme/                        # Theme configuration
+│   │   ├── index.tsx
+│   │   ├── palette.ts
+│   │   └── typography.ts
 │   │
 │   └── styles/                       # Global styles
 │       └── themes/
 │
 ├── config/
-│   ├── site.js                       # Site metadata
-│   └── env.js                        # Environment validation
+│   ├── site.ts                       # Site metadata
+│   └── env.ts                        # Environment validation
 │
 ├── public/
 │   ├── images/                       # All images organized here
 │   ├── icons/
 │   └── fonts/
 │
-├── jsconfig.json                     # Path aliases configured
+├── tsconfig.json                     # Path aliases configured
 ├── next.config.mjs
 ├── tailwind.config.js
 └── package.json
@@ -109,7 +159,7 @@ lern/
 
 ### 1. Path Aliases
 
-Configured in `jsconfig.json`:
+Configured in `tsconfig.json`:
 
 - `@/components/*` - Shared components
 - `@/features/*` - Feature modules
@@ -142,16 +192,24 @@ RESTful API endpoints:
 
 ## Usage Examples
 
+### Importing Feature Components
+
+```typescript
+import { ChatEmptyState, ChatMessageList, ChatInputArea } from "@/features/chat";
+import { useChatContext } from "@/features/chat";
+import { useConversations } from "@/features/chat";
+```
+
 ### Importing Shared Components
 
-```javascript
-import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
+```typescript
+import { DashboardLayout } from "@/components/layout";
+import { Markdown } from "@/components/shared/Markdown";
 ```
 
 ### Using State Management
 
-```javascript
+```typescript
 import { useAuth, useNotes } from "@/store";
 
 const { user, login } = useAuth();
@@ -160,7 +218,7 @@ const { notes, addNote } = useNotes();
 
 ### Using Utilities
 
-```javascript
+```typescript
 import { formatDate } from "@/lib/utils/formatters";
 import { validateEmail } from "@/lib/utils/validators";
 import { AI_MODELS } from "@/lib/constants";
@@ -168,11 +226,13 @@ import { AI_MODELS } from "@/lib/constants";
 
 ### API Client
 
-```javascript
-import apiClient from "@/lib/api-client";
+```typescript
+import apiClient from "@/lib/api/api-client";
+import { conversationAPI } from "@/lib/api/server-client";
 
 const notes = await apiClient.get("/notes");
 const chat = await apiClient.post("/chat", { message, model });
+const conversations = await conversationAPI.list();
 ```
 
 ## Adding New Features
@@ -182,31 +242,36 @@ const chat = await apiClient.post("/chat", { message, model });
 ```
 src/features/new-feature/
 ├── components/
-│   └── NewFeatureComponent.js
+│   └── NewFeatureComponent.tsx
 ├── hooks/
-│   └── useNewFeature.js
-└── services/
-    └── newFeatureService.js
+│   └── useNewFeature.ts
+├── services/
+│   └── newFeatureService.ts
+├── context/
+│   └── NewFeatureContext.tsx
+├── types.ts
+├── styles.ts
+└── index.ts
 ```
 
 ### 2. Add Route
 
 ```
 src/app/(dashboard)/new-feature/
-└── page.js
+└── page.tsx
 ```
 
 ### 3. Add API Endpoint
 
 ```
 src/app/api/new-feature/
-└── route.js
+└── route.ts
 ```
 
 ### 4. Add State Slice (if needed)
 
-```javascript
-// src/store/slices/newFeatureSlice.js
+```typescript
+// src/store/slices/newFeatureSlice.ts
 export const createNewFeatureSlice = (set, get) => ({
   // state and actions
 });
@@ -216,7 +281,7 @@ export const createNewFeatureSlice = (set, get) => ({
 
 1. Copy `.env.example` to `.env.local`
 2. Add your API keys and configuration
-3. Update `config/env.js` if you add required variables
+3. Update `config/env.ts` if you add required variables
 
 ## Best Practices
 
@@ -224,21 +289,24 @@ export const createNewFeatureSlice = (set, get) => ({
 2. **Use feature folders** - Feature-specific code stays together
 3. **Leverage path aliases** - Cleaner imports
 4. **Centralize utilities** - Reusable functions in `lib/utils`
-5. **Type your code** - Use JSDoc comments for better IDE support
+5. **Type your code** - Use TypeScript for better IDE support
 6. **Follow naming conventions** - PascalCase for components, camelCase for utilities
+7. **Feature self-containment** - Each feature should be self-contained with its own components, hooks, services, and types
 
-## Next Steps
+## Architecture Principles
 
-1. Implement Firebase/Supabase authentication
-2. Connect AI API providers (OpenAI, Anthropic, etc.)
-3. Build out notes feature
-4. Add user dashboard
-5. Implement real-time features
-6. Add analytics and monitoring
+1. **Feature Self-Containment**: Each feature in `src/features/` contains all its components, hooks, services, types, and styles
+2. **Clear Separation**: Shared code in `src/components/`, `src/lib/`, `src/hooks/`; feature code in `src/features/`
+3. **Scalability**: Easy to add new features by creating a new folder in `src/features/`
+4. **Consistency**: All features follow the same internal structure
+5. **Route Pages Stay Thin**: Pages in `src/app/` should only compose features, not contain business logic
 
 ## Migration Notes
 
-- Old `(landingPage)` → Now `(marketing)`
-- Old `/chat` → Now `/(dashboard)/chat`
-- All images moved to `/public/images/`
-- Marketing components moved to `/src/components/marketing/`
+- Old `src/app/features/chat/*` → Now `src/features/chat/`
+- Old `src/layouts/dashboard/*` → Now `src/components/layout/`
+- Old `src/lib/api-client.ts` → Now `src/lib/api/api-client.ts`
+- Old `src/lib/server-client.ts` → Now `src/lib/api/server-client.ts`
+- Old `src/lib/groqClient.ts` → Now `src/lib/services/ai/groqClient.ts`
+- Old `src/lib/firebase/*` → Now `src/lib/services/firebase/`
+- Old `src/hooks/useConversations.ts` → Now `src/features/chat/hooks/useConversations.ts`

@@ -1,6 +1,6 @@
 // API related type definitions
 
-export interface APIResponse<T = any> {
+export interface APIResponse<T = unknown> {
   data?: T;
   error?: string;
   message?: string;
@@ -9,7 +9,7 @@ export interface APIResponse<T = any> {
 
 export interface ChatRequest {
   messages: Array<{
-    role: "user" | "assistant" | "system";
+    role: 'user' | 'assistant' | 'system';
     content: string;
   }>;
   model: string;
@@ -17,7 +17,7 @@ export interface ChatRequest {
 
 export interface ChatResponse {
   id: number | string;
-  role: "assistant";
+  role: 'assistant';
   content: string;
   model: string;
   timestamp: string;
@@ -37,7 +37,7 @@ export interface NoteUpdateRequest extends Partial<NoteCreateRequest> {
 export interface AIGenerateRequest {
   prompt: string;
   model: string;
-  type: "quiz" | "flashcard" | "summary" | "explanation";
+  type: 'quiz' | 'flashcard' | 'summary' | 'explanation';
 }
 
 export interface AIGenerateResponse {

@@ -1,18 +1,42 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
-import Image from "next/image";
-
 import "./styles/Particles.css";
-import ShinyText from "@/components/marketing/ShinyText";
+
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import ShinyText from "@/components/shared/ShinyText";
+import { useTheme, alpha } from "@mui/material/styles";
+import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
+import { Box, Typography, Link as MuiLink, Divider } from "@mui/material";
 
 const Footer = () => {
+  const theme = useTheme();
+  const isLight = theme.palette.mode === "light";
+
   return (
-    <footer className="text-gray-300 py-8 relative overflow-x-hidden">
-      <div className="h-full w-full absolute z-1">
+    <Box
+      component="footer"
+      sx={{
+        color: theme.palette.text.secondary,
+        py: 6,
+        position: "relative",
+        overflowX: "hidden",
+      }}
+    >
+      <Box
+        sx={{
+          height: "100%",
+          width: "100%",
+          position: "absolute",
+          zIndex: 1,
+        }}
+      >
         <Particles
-          particleColors={["#ffffff", "#ffffff"]}
+          particleColors={[
+            theme.palette.text.primary,
+            alpha(theme.palette.text.primary, 0.8),
+            alpha(theme.palette.text.primary, 0.6),
+          ]}
           particleCount={300}
           particleSpread={10}
           speed={0.1}
@@ -20,13 +44,26 @@ const Footer = () => {
           moveParticlesOnHover={false}
           alphaParticles={true}
           disableRotation={false}
-          className=""
         />
-      </div>
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
+      </Box>
+      <Box
+        sx={{
+          maxWidth: "7xl",
+          mx: "auto",
+          px: 4,
+          position: "relative",
+          zIndex: 10,
+        }}
+      >
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+            gap: 8,
+          }}
+        >
+          <Box>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
               <Image
                 src="/images/logo.png"
                 alt="Lern Logo"
@@ -34,34 +71,122 @@ const Footer = () => {
                 height={24}
                 className="object-contain"
               />
-              <h3 className="text-white text-lg font-semibold">Lern</h3>
-              <sup className="p-2 border rounded-full scale-75">Beta</sup>
-            </div>
-            <p className="text-sm">Empowering learners worldwide with quality education.</p>
-          </div>
-          <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="/about" className="hover:text-white">
+              <Typography
+                variant="h5"
+                sx={{
+                  color: theme.palette.text.primary,
+                  fontWeight: 600,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Lern
+              </Typography>
+              <Box
+                component="sup"
+                sx={{
+                  p: 2,
+                  border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
+                  borderRadius: "999px",
+                  transform: "scale(0.75)",
+                  fontSize: "0.75rem",
+                }}
+              >
+                Beta
+              </Box>
+            </Box>
+            <Typography
+              variant="body2"
+              sx={{
+                opacity: 0.9,
+                color: theme.palette.text.secondary,
+              }}
+            >
+              Empowering learners worldwide with quality education.
+            </Typography>
+          </Box>
+          <Box>
+            <Typography
+              variant="h5"
+              sx={{
+                color: theme.palette.text.primary,
+                fontWeight: 600,
+                mb: 3,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Quick Links
+            </Typography>
+            <Box
+              component="ul"
+              sx={{
+                listStyle: "none",
+                p: 0,
+                m: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+              }}
+            >
+              <Box component="li">
+                <MuiLink
+                  href="/about"
+                  sx={{
+                    color: theme.palette.text.secondary,
+                    textDecoration: "none",
+                    "&:hover": {
+                      color: theme.palette.text.primary,
+                    },
+                    transition: "color 0.2s ease",
+                  }}
+                >
                   About Us
-                </a>
-              </li>
-              <li>
-                <a href="/courses" className="hover:text-white">
+                </MuiLink>
+              </Box>
+              <Box component="li">
+                <MuiLink
+                  href="/courses"
+                  sx={{
+                    color: theme.palette.text.secondary,
+                    textDecoration: "none",
+                    "&:hover": {
+                      color: theme.palette.text.primary,
+                    },
+                    transition: "color 0.2s ease",
+                  }}
+                >
                   Courses
-                </a>
-              </li>
-              <li>
-                <a href="/contact" className="hover:text-white">
+                </MuiLink>
+              </Box>
+              <Box component="li">
+                <MuiLink
+                  href="/contact"
+                  sx={{
+                    color: theme.palette.text.secondary,
+                    textDecoration: "none",
+                    "&:hover": {
+                      color: theme.palette.text.primary,
+                    },
+                    transition: "color 0.2s ease",
+                  }}
+                >
                   Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Contact</h3>
-            <p className="text-sm">
+                </MuiLink>
+              </Box>
+            </Box>
+          </Box>
+          <Box>
+            <Typography
+              variant="h5"
+              sx={{
+                color: theme.palette.text.primary,
+                fontWeight: 600,
+                mb: 3,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Contact
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 1, color: theme.palette.text.secondary }}>
               Email:{" "}
               <ShinyText
                 text="mahadihasanfardin2015@gmail.com"
@@ -69,8 +194,8 @@ const Footer = () => {
                 speed={3}
                 className="custom-class"
               />
-            </p>
-            <p className="text-sm">
+            </Typography>
+            <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
               Phone:{" "}
               <ShinyText
                 text="+88 01540159331"
@@ -78,14 +203,27 @@ const Footer = () => {
                 speed={3}
                 className="custom-class"
               />
-            </p>
-          </div>
-        </div>
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p>&copy; {new Date().getFullYear()} Lern. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
+            </Typography>
+          </Box>
+        </Box>
+        <Divider
+          sx={{
+            borderColor: alpha(theme.palette.divider, isLight ? 0.3 : 0.5),
+            mt: 6,
+            pt: 6,
+          }}
+        />
+        <Typography
+          variant="body2"
+          sx={{
+            textAlign: "center",
+            color: theme.palette.text.secondary,
+          }}
+        >
+          &copy; {new Date().getFullYear()} Lern. All rights reserved.
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 

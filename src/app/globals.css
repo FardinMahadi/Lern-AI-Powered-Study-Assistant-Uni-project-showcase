@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lexend:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
-:root {
+/* Dark theme (default) */
+:root,
+[data-theme="dark"] {
   --background: #0a0a0a;
   --background-light: #1a1a1a;
   --background-dark: #000000;
@@ -14,9 +16,9 @@
   --panel-light: #3c3c3c;
   --panel-dark: #1c1c1c;
 
-  --primary: #3b82f6;
-  --primary-light: #60a5fa;
-  --primary-dark: #2563eb;
+  --primary: #00d9ff;
+  --primary-light: #7eebff;
+  --primary-dark: #0096b5;
 
   --accent: #10b981;
   --accent-light: #34d399;
@@ -34,9 +36,71 @@
   --danger-light: #f87171;
   --danger-dark: #dc2626;
 
-  /* Font families */
+  --foreground: #ededed;
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --background: #f5f9fc;
+  --background-light: #ffffff;
+  --background-dark: #e5eef5;
+
+  --surface: #ffffff;
+  --surface-light: #fafbfc;
+  --surface-dark: #f0f4f8;
+
+  --panel: #ffffff;
+  --panel-light: #fafbfc;
+  --panel-dark: #f0f4f8;
+
+  --primary: #00d9ff;
+  --primary-light: #7eebff;
+  --primary-dark: #0096b5;
+
+  --accent: #10b981;
+  --accent-light: #34d399;
+  --accent-dark: #059669;
+
+  --muted: #6b7280;
+  --muted-light: #9ca3af;
+  --muted-dark: #4f5b67;
+
+  --text: #101418;
+  --text-light: #0a0a0a;
+  --text-dark: #4f5b67;
+
+  --danger: #ef4444;
+  --danger-light: #f87171;
+  --danger-dark: #dc2626;
+
+  --foreground: #101418;
+}
+
+/* Font families */
+:root {
   --font-heading: "Sora", system-ui, -apple-system, sans-serif;
   --font-body: "Lexend", system-ui, -apple-system, sans-serif;
+
+  /* Typography scale */
+  --fs-display-lg: clamp(2.5rem, 4vw + 1rem, 3.25rem);
+  --fs-display-md: clamp(2.1rem, 2.5vw + 1rem, 2.75rem);
+  --fs-display-sm: clamp(1.75rem, 1.5vw + 1rem, 2.2rem);
+  --fs-title-lg: clamp(1.45rem, 1.2vw + 0.9rem, 1.85rem);
+  --fs-title-md: clamp(1.25rem, 0.6vw + 0.95rem, 1.55rem);
+  --fs-title-sm: clamp(1.05rem, 0.4vw + 0.9rem, 1.3rem);
+  --fs-body: clamp(0.95rem, 0.2vw + 0.85rem, 1rem);
+  --fs-body-compact: clamp(0.88rem, 0.18vw + 0.8rem, 0.95rem);
+  --fs-caption: 0.75rem;
+
+  --lh-display: 1.1;
+  --lh-title: 1.25;
+  --lh-body: 1.6;
+  --lh-body-compact: 1.5;
+
+  /* Density helpers */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
 }
 
 @theme inline {
@@ -76,17 +140,13 @@
   --font-heading: var(--font-heading);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--text);
   font-family: var(--font-body);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 h1,

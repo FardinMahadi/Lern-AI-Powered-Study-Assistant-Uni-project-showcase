@@ -1,7 +1,9 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { User } from "firebase/auth";
+
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { getMissingFirebaseEnvVars, isFirebaseConfigured } from "@/lib/services/firebase/config";
 import {
   SubscriptionTier,
   UserProfile,
@@ -11,8 +13,7 @@ import {
   signOut as firebaseSignOut,
   signUp as firebaseSignUp,
   updateUserTier,
-} from "@/lib/firebase/auth";
-import { getMissingFirebaseEnvVars, isFirebaseConfigured } from "@/lib/firebase/config";
+} from "@/lib/services/firebase/auth";
 
 interface AuthContextValue {
   user: User | null;
@@ -163,26 +164,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     [firebaseConfigured, user, profile, loading, signIn, signUp, signOut, changeTier]
   );
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!firebaseConfigured && envErrorMessage && (
-        <div
-          style={{
-            padding: "12px 16px",
-            margin: "12px",
-            borderRadius: 12,
-            backgroundColor: "rgba(255, 99, 71, 0.12)",
-            border: "1px solid rgba(255, 99, 71, 0.4)",
-            color: "rgb(179, 38, 30)",
-            fontSize: "0.95rem",
-          }}
-        >
-          <strong>Firebase configuration missing.</strong> {envErrorMessage}
-        </div>
-      )}
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext(): AuthContextValue {

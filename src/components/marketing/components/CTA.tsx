@@ -1,82 +1,172 @@
-import Link from "next/link";
+"use client";
+
 import React from "react";
-import ShinyText from "@/components/marketing/ShinyText";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import Link from "next/link";
 import { TiThMenu } from "react-icons/ti";
+import ShinyText from "@/components/shared/ShinyText";
+import { useTheme, alpha } from "@mui/material/styles";
+import { Box, Button, Menu, MenuItem, IconButton } from "@mui/material";
 
 const CTA = () => {
+  const theme = useTheme();
+  const isLight = theme.palette.mode === "light";
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const menuItems = [
+    { label: "Features", href: "/features" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "About", href: "/about" },
+  ];
+
   return (
-    <div>
+    <Box>
       {/* Mobile screen */}
-      <div className="md:hidden">
-        <Menu>
-          <MenuButton className="text-[#b5b5b5a4] text-xl">
-            <TiThMenu />
-          </MenuButton>
-
-          <MenuItems
-            transition
-            anchor="bottom end"
-            className="w-52 origin-top-right rounded-xl border border-[#b5b5b5a4] bg-surface-light p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:--spacing(1)] focus:outline-none data-closed:scale-95 data-closed:opacity-0 z-100 flex flex-col text-center gap-2 font-bold"
+      <Box sx={{ display: { xs: "block", md: "none" } }}>
+        <IconButton
+          onClick={handleClick}
+          sx={{
+            color: alpha(theme.palette.text.primary, 0.7),
+            fontSize: "1.5rem",
+          }}
+        >
+          <TiThMenu />
+        </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          PaperProps={{
+            sx: {
+              width: 208,
+              borderRadius: 3,
+              border: `1px solid ${alpha(theme.palette.divider, isLight ? 0.3 : 0.5)}`,
+              bgcolor: theme.palette.background.paper,
+              mt: 1,
+              p: 1,
+              display: "flex",
+              flexDirection: "column",
+              gap: 0.5,
+            },
+          }}
+        >
+          {menuItems.map((item) => (
+            <MenuItem
+              key={item.label}
+              component={Link}
+              href={item.href}
+              onClick={handleClose}
+              sx={{
+                color: theme.palette.text.secondary,
+                "&:hover": {
+                  color: theme.palette.text.primary,
+                  bgcolor: alpha(theme.palette.text.primary, 0.05),
+                },
+                borderRadius: 1,
+                transition: "all 0.2s ease",
+              }}
+            >
+              {item.label}
+            </MenuItem>
+          ))}
+          <Box
+            sx={{
+              my: 0.5,
+              height: "1px",
+              bgcolor: alpha(theme.palette.divider, isLight ? 0.3 : 0.5),
+            }}
+          />
+          <MenuItem
+            component={Link}
+            href="/login"
+            onClick={handleClose}
+            sx={{
+              color: theme.palette.text.secondary,
+              "&:hover": {
+                color: theme.palette.text.primary,
+                bgcolor: "transparent",
+              },
+              transition: "all 0.2s ease",
+            }}
           >
-            <MenuItem>
-              <Link
-                href="/features"
-                className="text-gray-300 hover:text-muted-dark transition-colors duration-200"
-              >
-                Features
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link
-                href="/pricing"
-                className="text-gray-300 hover:text-muted-dark transition-colors duration-200"
-              >
-                Pricing
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link
-                href="/about"
-                className="text-gray-300 hover:text-muted-dark transition-colors duration-200"
-              >
-                About
-              </Link>
-            </MenuItem>
-            <div className="my-1 h-px bg-[#b5b5b5a4]" />
-            <MenuItem>
-              <Link
-                href="/login"
-                className="text-[#b5b5b5a4] hover:text-[rgb(181,181,181)] transition"
-              >
-                Login
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link
-                href="/signup"
-                className="border border-[#b5b5b5a4] rounded-full px-3 py-0.5 bg-background-light hover:bg-[#2a2a2a]"
-              >
-                <ShinyText text="Sign Up" disabled={false} speed={3} />
-              </Link>
-            </MenuItem>
-          </MenuItems>
+            Login
+          </MenuItem>
+          <MenuItem
+            component={Link}
+            href="/signup"
+            onClick={handleClose}
+            sx={{
+              border: `1px solid ${alpha(theme.palette.divider, isLight ? 0.3 : 0.5)}`,
+              borderRadius: "999px",
+              px: 3,
+              py: 0.5,
+              bgcolor: theme.palette.background.default,
+              "&:hover": {
+                bgcolor: alpha(theme.palette.text.primary, isLight ? 0.08 : 0.1),
+              },
+              transition: "all 0.2s ease",
+            }}
+          >
+            <ShinyText text="Sign Up" disabled={false} speed={3} />
+          </MenuItem>
         </Menu>
-      </div>
+      </Box>
 
-      {/* Big screen */}
-      <div className="hidden md:flex items-center space-x-4">
-        <Link href="/login" className="text-[#b5b5b5a4] hover:text-[rgb(181,181,181)] transition">
+      {/* Desktop screen */}
+      <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 2 }}>
+        <Button
+          component={Link}
+          href="/login"
+          sx={{
+            color: alpha(theme.palette.text.primary, 0.7),
+            textTransform: "none",
+            "&:hover": {
+              color: theme.palette.text.primary,
+              bgcolor: "transparent",
+            },
+            transition: "all 0.2s ease",
+          }}
+        >
           Login
-        </Link>
-        <Link
+        </Button>
+        <Button
+          component={Link}
           href="/signup"
-          className="border border-[#b5b5b5a4] rounded-full px-3 py-0.5 bg-background-light hover:bg-[#2a2a2a]"
+          variant="outlined"
+          sx={{
+            borderColor: alpha(theme.palette.divider, isLight ? 0.3 : 0.5),
+            borderRadius: "999px",
+            px: 3,
+            py: 0.5,
+            bgcolor: theme.palette.background.default,
+            color: theme.palette.text.primary,
+            "&:hover": {
+              borderColor: alpha(theme.palette.divider, isLight ? 0.5 : 0.7),
+              bgcolor: alpha(theme.palette.text.primary, isLight ? 0.08 : 0.1),
+            },
+            transition: "all 0.2s ease",
+          }}
         >
           <ShinyText text="Sign Up" disabled={false} speed={3} />
-        </Link>
-      </div>
-    </div>
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

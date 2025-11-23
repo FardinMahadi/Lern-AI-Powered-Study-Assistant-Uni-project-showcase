@@ -1,5 +1,5 @@
+import groqClient from "@/lib/services/ai/groqClient";
 import { NextRequest, NextResponse } from "next/server";
-import groqClient from "@/lib/groqClient";
 import { ChatRequest, ChatResponse } from "@/types/api";
 
 const DEFAULT_MODEL = "openai/gpt-oss-20b";

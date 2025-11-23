@@ -1,75 +1,76 @@
-"use client";
+'use client';
 
+import GroupIcon from '@mui/icons-material/Group';
+import SchoolIcon from '@mui/icons-material/School';
+import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
+import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import {
-  Container,
+  Avatar,
   Box,
-  Grid,
   Card,
   CardContent,
-  Typography,
+  Container,
+  Grid,
   Stack,
-  Avatar,
+  Typography,
   useTheme,
-  useMediaQuery,
-} from "@mui/material";
-import { School, Lightbulb, Users, Target } from "@mui/icons-material";
+} from '@mui/material';
 
 const values = [
   {
-    icon: School,
-    title: "Education First",
+    icon: SchoolIcon,
+    title: 'Education First',
     description:
-      "We believe education should be accessible, affordable, and personalized for everyone.",
+      'We believe education should be accessible, affordable, and personalized for everyone.',
   },
   {
-    icon: Lightbulb,
-    title: "Innovation",
-    description: "We continuously innovate to provide the best AI-powered learning experiences.",
+    icon: EmojiObjectsIcon,
+    title: 'Innovation',
+    description: 'We continuously innovate to provide the best AI-powered learning experiences.',
   },
   {
-    icon: Users,
-    title: "Community",
-    description: "We foster a vibrant community of learners supporting each other.",
+    icon: GroupIcon,
+    title: 'Community',
+    description: 'We foster a vibrant community of learners supporting each other.',
   },
   {
-    icon: Target,
-    title: "Excellence",
-    description: "We strive for excellence in everything we do, from product to support.",
+    icon: TrackChangesIcon,
+    title: 'Excellence',
+    description: 'We strive for excellence in everything we do, from product to support.',
   },
 ];
 
 const team = [
   {
-    name: "Alex Chen",
-    role: "Founder & CEO",
-    description: "AI researcher with 10+ years of experience in machine learning.",
+    name: 'Alex Chen',
+    role: 'Founder & CEO',
+    description: 'AI researcher with 10+ years of experience in machine learning.',
   },
   {
-    name: "Sarah Williams",
-    role: "CTO",
-    description: "Full-stack engineer passionate about building scalable learning platforms.",
+    name: 'Sarah Williams',
+    role: 'CTO',
+    description: 'Full-stack engineer passionate about building scalable learning platforms.',
   },
   {
-    name: "Michael Rodriguez",
-    role: "Head of Product",
-    description: "Product strategist focused on user-centric learning experiences.",
+    name: 'Michael Rodriguez',
+    role: 'Head of Product',
+    description: 'Product strategist focused on user-centric learning experiences.',
   },
 ];
 
 export default function AboutPage() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box sx={{ bgcolor: "background.default" }}>
+    <Box sx={{ bgcolor: 'background.default' }}>
       {/* Hero Section */}
       <Box sx={{ py: { xs: 4, md: 8 }, borderBottom: `1px solid ${theme.palette.divider}` }}>
         <Container maxWidth="lg">
-          <Stack spacing={3} sx={{ textAlign: "center" }}>
+          <Stack spacing={3} sx={{ textAlign: 'center' }}>
             <Typography variant="h3" component="h1" sx={{ fontWeight: 700 }}>
               About Lern
             </Typography>
-            <Typography variant="h6" sx={{ color: "text.secondary", maxWidth: 600, mx: "auto" }}>
+            <Typography variant="h6" sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto' }}>
               Transforming education through AI-powered learning experiences
             </Typography>
           </Stack>
@@ -85,11 +86,11 @@ export default function AboutPage() {
                 <Typography variant="h4" sx={{ fontWeight: 700 }}>
                   Our Mission
                 </Typography>
-                <Typography variant="body1" sx={{ color: "text.secondary" }}>
+                <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                   We&apos;re on a mission to democratize AI-powered learning and make it accessible
                   to everyone, regardless of background or location.
                 </Typography>
-                <Typography variant="body1" sx={{ color: "text.secondary" }}>
+                <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                   Through intelligent conversations and personalized learning paths, we help
                   students, professionals, and lifelong learners achieve their educational goals
                   faster and more effectively.
@@ -101,18 +102,18 @@ export default function AboutPage() {
                 sx={{
                   p: 4,
                   bgcolor:
-                    theme.palette.mode === "dark" ? "rgba(0,217,255,0.08)" : "rgba(0,217,255,0.12)",
+                    theme.palette.mode === 'dark' ? 'rgba(0,217,255,0.08)' : 'rgba(0,217,255,0.12)',
                   borderRadius: 3,
                   border: `1px solid ${
-                    theme.palette.mode === "dark" ? "rgba(0,217,255,0.2)" : "rgba(0,217,255,0.3)"
+                    theme.palette.mode === 'dark' ? 'rgba(0,217,255,0.2)' : 'rgba(0,217,255,0.3)'
                   }`,
-                  textAlign: "center",
+                  textAlign: 'center',
                 }}
               >
-                <Typography variant="h4" sx={{ fontWeight: 700, color: "primary.main" }}>
+                <Typography variant="h4" sx={{ fontWeight: 700, color: 'primary.main' }}>
                   50K+
                 </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                   Active Learners
                 </Typography>
               </Box>
@@ -125,11 +126,11 @@ export default function AboutPage() {
       <Box sx={{ py: { xs: 4, md: 8 }, borderTop: `1px solid ${theme.palette.divider}` }}>
         <Container maxWidth="lg">
           <Stack spacing={4}>
-            <Box sx={{ textAlign: "center" }}>
+            <Box sx={{ textAlign: 'center' }}>
               <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
                 Our Values
               </Typography>
-              <Typography variant="body1" sx={{ color: "text.secondary" }}>
+              <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                 These principles guide everything we do
               </Typography>
             </Box>
@@ -141,23 +142,23 @@ export default function AboutPage() {
                   <Grid item xs={12} sm={6} md={3} key={index}>
                     <Card
                       sx={{
-                        height: "100%",
-                        background: "transparent",
+                        height: '100%',
+                        background: 'transparent',
                         border: `1px solid ${
-                          theme.palette.mode === "dark"
-                            ? "rgba(255,255,255,0.08)"
-                            : "rgba(0,0,0,0.08)"
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(255,255,255,0.08)'
+                            : 'rgba(0,0,0,0.08)'
                         }`,
                       }}
                     >
                       <CardContent>
                         <Box sx={{ mb: 2 }}>
-                          <Icon sx={{ fontSize: 32, color: "primary.main" }} />
+                          <Icon sx={{ fontSize: 32, color: 'primary.main' }} />
                         </Box>
                         <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                           {value.title}
                         </Typography>
-                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                           {value.description}
                         </Typography>
                       </CardContent>
@@ -174,11 +175,11 @@ export default function AboutPage() {
       <Box sx={{ py: { xs: 4, md: 8 }, borderTop: `1px solid ${theme.palette.divider}` }}>
         <Container maxWidth="lg">
           <Stack spacing={4}>
-            <Box sx={{ textAlign: "center" }}>
+            <Box sx={{ textAlign: 'center' }}>
               <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
                 Meet Our Team
               </Typography>
-              <Typography variant="body1" sx={{ color: "text.secondary" }}>
+              <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                 Passionate about transforming education through technology
               </Typography>
             </Box>
@@ -188,13 +189,13 @@ export default function AboutPage() {
                 <Grid item xs={12} sm={6} md={4} key={index}>
                   <Card
                     sx={{
-                      height: "100%",
-                      textAlign: "center",
-                      background: "transparent",
+                      height: '100%',
+                      textAlign: 'center',
+                      background: 'transparent',
                       border: `1px solid ${
-                        theme.palette.mode === "dark"
-                          ? "rgba(255,255,255,0.08)"
-                          : "rgba(0,0,0,0.08)"
+                        theme.palette.mode === 'dark'
+                          ? 'rgba(255,255,255,0.08)'
+                          : 'rgba(0,0,0,0.08)'
                       }`,
                     }}
                   >
@@ -203,10 +204,10 @@ export default function AboutPage() {
                         sx={{
                           width: 80,
                           height: 80,
-                          mx: "auto",
+                          mx: 'auto',
                           mb: 2,
-                          bgcolor: "primary.main",
-                          fontSize: "2rem",
+                          bgcolor: 'primary.main',
+                          fontSize: '2rem',
                         }}
                       >
                         {member.name.charAt(0)}
@@ -216,11 +217,11 @@ export default function AboutPage() {
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ color: "primary.main", fontWeight: 600, mb: 2 }}
+                        sx={{ color: 'primary.main', fontWeight: 600, mb: 2 }}
                       >
                         {member.role}
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                         {member.description}
                       </Typography>
                     </CardContent>
@@ -236,19 +237,19 @@ export default function AboutPage() {
       <Box
         sx={{
           py: { xs: 4, md: 8 },
-          bgcolor: theme.palette.mode === "dark" ? "rgba(0,217,255,0.08)" : "rgba(0,217,255,0.12)",
+          bgcolor: theme.palette.mode === 'dark' ? 'rgba(0,217,255,0.08)' : 'rgba(0,217,255,0.12)',
           borderTop: `1px solid ${theme.palette.divider}`,
         }}
       >
-        <Container maxWidth="lg" sx={{ textAlign: "center" }}>
+        <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
           <Stack spacing={2}>
             <Typography variant="h5" sx={{ fontWeight: 700 }}>
               Get in Touch
             </Typography>
-            <Typography variant="body1" sx={{ color: "text.secondary" }}>
+            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
               Have questions or feedback? We&apos;d love to hear from you.
             </Typography>
-            <Typography variant="body1" sx={{ fontWeight: 600, color: "primary.main", mt: 2 }}>
+            <Typography variant="body1" sx={{ fontWeight: 600, color: 'primary.main', mt: 2 }}>
               hello@lern.ai
             </Typography>
           </Stack>
