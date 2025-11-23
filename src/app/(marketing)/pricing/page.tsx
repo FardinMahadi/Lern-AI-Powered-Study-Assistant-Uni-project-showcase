@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { CheckCircle, RocketLaunch } from "@mui/icons-material";
+import { CheckCircle, RocketLaunch } from '@mui/icons-material';
 import {
   Container,
   Box,
@@ -15,50 +15,50 @@ import {
   ListItemIcon,
   ListItemText,
   useTheme,
-} from "@mui/material";
+} from '@mui/material';
 
 const tiers = [
   {
-    name: "Free",
-    price: "0",
-    description: "Perfect for getting started",
+    name: 'Free',
+    price: '0',
+    description: 'Perfect for getting started',
     features: [
-      "5 conversations per day",
-      "Basic AI models",
-      "Text-based responses",
-      "Community support",
-      "7-day conversation history",
+      '5 conversations per day',
+      'Basic AI models',
+      'Text-based responses',
+      'Community support',
+      '7-day conversation history',
     ],
     highlighted: false,
   },
   {
-    name: "Pro",
-    price: "9.99",
-    description: "For serious learners",
+    name: 'Pro',
+    price: '9.99',
+    description: 'For serious learners',
     features: [
-      "Unlimited conversations",
-      "Advanced AI models",
-      "Priority support",
-      "30-day conversation history",
-      "Export conversations",
-      "Custom model selection",
-      "Advanced analytics",
+      'Unlimited conversations',
+      'Advanced AI models',
+      'Priority support',
+      '30-day conversation history',
+      'Export conversations',
+      'Custom model selection',
+      'Advanced analytics',
     ],
     highlighted: true,
   },
   {
-    name: "Advanced",
-    price: "24.99",
-    description: "For power users",
+    name: 'Advanced',
+    price: '24.99',
+    description: 'For power users',
     features: [
-      "Everything in Pro",
-      "API access",
-      "Custom integrations",
-      "Unlimited history",
-      "Dedicated account manager",
-      "Custom AI training",
-      "Advanced security features",
-      "Early access to new features",
+      'Everything in Pro',
+      'API access',
+      'Custom integrations',
+      'Unlimited history',
+      'Dedicated account manager',
+      'Custom AI training',
+      'Advanced security features',
+      'Early access to new features',
     ],
     highlighted: false,
   },
@@ -68,15 +68,15 @@ export default function PricingPage() {
   const theme = useTheme();
 
   return (
-    <Box sx={{ py: { xs: 4, md: 8 }, bgcolor: "background.default" }}>
+    <Box sx={{ py: { xs: 4, md: 8 }, bgcolor: 'background.default' }}>
       <Container maxWidth="lg">
         <Stack spacing={4}>
           {/* Header */}
-          <Box sx={{ textAlign: "center", mb: 4 }}>
+          <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 2 }}>
               Simple, Transparent Pricing
             </Typography>
-            <Typography variant="h6" sx={{ color: "text.secondary", maxWidth: 600, mx: "auto" }}>
+            <Typography variant="h6" sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto' }}>
               Choose the perfect plan for your learning needs. Always flexible, always fair.
             </Typography>
           </Box>
@@ -87,30 +87,30 @@ export default function PricingPage() {
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <Card
                   sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    position: "relative",
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'relative',
                     background:
-                      tier.highlighted && theme.palette.mode === "dark"
-                        ? "linear-gradient(135deg, rgba(0,217,255,0.1) 0%, rgba(110,89,240,0.1) 100%)"
+                      tier.highlighted && theme.palette.mode === 'dark'
+                        ? 'linear-gradient(135deg, rgba(0,217,255,0.1) 0%, rgba(110,89,240,0.1) 100%)'
                         : tier.highlighted
-                          ? "linear-gradient(135deg, rgba(0,217,255,0.15) 0%, rgba(110,89,240,0.15) 100%)"
+                          ? 'linear-gradient(135deg, rgba(0,217,255,0.15) 0%, rgba(110,89,240,0.15) 100%)'
                           : undefined,
                     border: `1px solid ${
                       tier.highlighted
                         ? theme.palette.primary.main
-                        : theme.palette.mode === "dark"
-                          ? "rgba(255,255,255,0.08)"
-                          : "rgba(0,0,0,0.08)"
+                        : theme.palette.mode === 'dark'
+                          ? 'rgba(255,255,255,0.08)'
+                          : 'rgba(0,0,0,0.08)'
                     }`,
-                    transform: tier.highlighted ? "scale(1.05)" : "scale(1)",
-                    transition: "all 0.3s ease",
-                    "&:hover": {
+                    transform: tier.highlighted ? 'scale(1.05)' : 'scale(1)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
                       boxShadow: `0 8px 24px ${
-                        theme.palette.mode === "dark"
-                          ? "rgba(0,217,255,0.2)"
-                          : "rgba(0,217,255,0.3)"
+                        theme.palette.mode === 'dark'
+                          ? 'rgba(0,217,255,0.2)'
+                          : 'rgba(0,217,255,0.3)'
                       }`,
                     },
                   }}
@@ -118,19 +118,19 @@ export default function PricingPage() {
                   {tier.highlighted && (
                     <Box
                       sx={{
-                        position: "absolute",
+                        position: 'absolute',
                         top: -12,
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        bgcolor: "primary.main",
-                        color: theme.palette.mode === "dark" ? "rgba(10, 10, 10, 1)" : "white",
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        bgcolor: 'primary.main',
+                        color: theme.palette.mode === 'dark' ? 'rgba(10, 10, 10, 1)' : 'white',
                         px: 2,
                         py: 0.5,
                         borderRadius: 999,
-                        fontSize: "0.75rem",
+                        fontSize: '0.75rem',
                         fontWeight: 700,
-                        display: "flex",
-                        alignItems: "center",
+                        display: 'flex',
+                        alignItems: 'center',
                         gap: 0.5,
                       }}
                     >
@@ -143,19 +143,19 @@ export default function PricingPage() {
                     <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
                       {tier.name}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
+                    <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
                       {tier.description}
                     </Typography>
 
                     <Box sx={{ mb: 3 }}>
-                      <Typography variant="h4" sx={{ fontWeight: 700, display: "inline" }}>
+                      <Typography variant="h4" sx={{ fontWeight: 700, display: 'inline' }}>
                         ${tier.price}
                       </Typography>
                       <Typography
                         variant="body2"
                         sx={{
-                          color: "text.secondary",
-                          display: "inline",
+                          color: 'text.secondary',
+                          display: 'inline',
                           ml: 1,
                         }}
                       >
@@ -165,7 +165,7 @@ export default function PricingPage() {
 
                     <Button
                       fullWidth
-                      variant={tier.highlighted ? "contained" : "outlined"}
+                      variant={tier.highlighted ? 'contained' : 'outlined'}
                       sx={{ mb: 3 }}
                     >
                       Get Started
@@ -178,13 +178,13 @@ export default function PricingPage() {
                             <CheckCircle
                               sx={{
                                 fontSize: 20,
-                                color: "primary.main",
+                                color: 'primary.main',
                               }}
                             />
                           </ListItemIcon>
                           <ListItemText
                             primary={feature}
-                            primaryTypographyProps={{ variant: "body2" }}
+                            primaryTypographyProps={{ variant: 'body2' }}
                           />
                         </ListItem>
                       ))}
@@ -196,13 +196,13 @@ export default function PricingPage() {
           </Grid>
 
           {/* FAQ Section */}
-          <Box sx={{ mt: 6, textAlign: "center" }}>
+          <Box sx={{ mt: 6, textAlign: 'center' }}>
             <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
               Have questions?
             </Typography>
-            <Typography variant="body1" sx={{ color: "text.secondary" }}>
-              Contact our support team at{" "}
-              <Box component="span" sx={{ color: "primary.main", fontWeight: 600 }}>
+            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+              Contact our support team at{' '}
+              <Box component="span" sx={{ color: 'primary.main', fontWeight: 600 }}>
                 support@lern.ai
               </Box>
             </Typography>

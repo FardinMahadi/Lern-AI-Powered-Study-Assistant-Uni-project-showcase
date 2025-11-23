@@ -35,7 +35,7 @@ createuser -P lern_user
 Create `server/docker-compose.yml`:
 
 ```yaml
-version: "3.8"
+version: '3.8'
 
 services:
   postgres:
@@ -45,14 +45,14 @@ services:
       POSTGRES_USER: lern_user
       POSTGRES_PASSWORD: secure_password
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   adminer:
     image: adminer
     ports:
-      - "8080:8080"
+      - '8080:8080'
     depends_on:
       - postgres
 
@@ -137,23 +137,23 @@ NEXT_PUBLIC_API_URL=http://localhost:3001/api
 #### Example: Create Conversation
 
 ```typescript
-import { conversationAPI } from "@/lib/server-client";
+import { conversationAPI } from '@/lib/server-client';
 
 const conversation = await conversationAPI.create({
-  title: "Physics Homework",
-  model: "llama-3.1-70b-versatile",
+  title: 'Physics Homework',
+  model: 'llama-3.1-70b-versatile',
 });
 ```
 
 #### Example: Add Message
 
 ```typescript
-import { messageAPI } from "@/lib/server-client";
+import { messageAPI } from '@/lib/server-client';
 
 const message = await messageAPI.create({
-  conversationId: "conv_123",
-  role: "user",
-  content: "What is quantum computing?",
+  conversationId: 'conv_123',
+  role: 'user',
+  content: 'What is quantum computing?',
 });
 ```
 

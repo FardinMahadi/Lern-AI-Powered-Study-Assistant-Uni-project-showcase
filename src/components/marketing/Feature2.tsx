@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import SimpleParallax from "simple-parallax-js";
-import { ImArrowUpRight2 } from "react-icons/im";
+import Link from 'next/link';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import SimpleParallax from 'simple-parallax-js';
+import { ImArrowUpRight2 } from 'react-icons/im';
 
 const Feature2 = () => {
   return (
@@ -14,18 +14,18 @@ const Feature2 = () => {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        transition={{ duration: 1, ease: 'easeOut' }}
       >
         <div className="max-w-xl">
           <h2
             className="font-semibold mb-3 flex items-center gap-2 tracking-tight text-balance"
-            style={{ fontSize: "var(--fs-display-sm)", lineHeight: "var(--lh-display)" }}
+            style={{ fontSize: 'var(--fs-display-sm)', lineHeight: 'var(--lh-display)' }}
           >
             🤖 Your Personal AI Study Buddy
           </h2>
           <p
             className="text-base-content/70 mb-5"
-            style={{ fontSize: "var(--fs-body)", lineHeight: "var(--lh-body)" }}
+            style={{ fontSize: 'var(--fs-body)', lineHeight: 'var(--lh-body)' }}
           >
             Lern comes with a built-in AI tutor that understands your notes and helps you learn
             smarter. Ask questions, get explanations, and test your understanding — all within your

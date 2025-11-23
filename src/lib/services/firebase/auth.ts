@@ -5,7 +5,7 @@ import {
   setDoc,
   FirestoreDataConverter,
   WithFieldValue,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 import {
   User,
   UserCredential,
@@ -14,11 +14,11 @@ import {
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
   updateProfile,
-} from "firebase/auth";
+} from 'firebase/auth';
 
-import { getFirebaseAuth, getFirebaseFirestore } from "./config";
+import { getFirebaseAuth, getFirebaseFirestore } from './config';
 
-export type SubscriptionTier = "free" | "pro" | "advanced";
+export type SubscriptionTier = 'free' | 'pro' | 'advanced';
 
 export interface UserProfile {
   uid: string;
@@ -30,7 +30,7 @@ export interface UserProfile {
   updatedAt?: Date;
 }
 
-const USERS_COLLECTION = "users";
+const USERS_COLLECTION = 'users';
 
 const userProfileConverter: FirestoreDataConverter<UserProfile> = {
   toFirestore(profile: WithFieldValue<UserProfile>) {
@@ -73,7 +73,7 @@ export const signUp = async (
   const profile: UserProfile = {
     uid: credential.user.uid,
     email: credential.user.email ?? email,
-    tier: options?.tier ?? "free",
+    tier: options?.tier ?? 'free',
     displayName: credential.user.displayName,
     photoURL: credential.user.photoURL,
     createdAt: new Date(),

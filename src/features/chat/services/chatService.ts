@@ -1,6 +1,6 @@
-import { Message } from "@/types";
-import { ChatResponse } from "@/types/api";
-import apiClient from "@/lib/api/api-client";
+import { Message } from '@/types';
+import { ChatResponse } from '@/types/api';
+import apiClient from '@/lib/api/api-client';
 
 export interface SendMessageParams {
   messages: Message[];
@@ -13,8 +13,8 @@ export interface ChatService {
 
 class ChatServiceImpl implements ChatService {
   async sendMessage({ messages, model }: SendMessageParams): Promise<ChatResponse> {
-    return apiClient.post<ChatResponse>("/chat", {
-      messages: messages.map((message) => ({
+    return apiClient.post<ChatResponse>('/chat', {
+      messages: messages.map(message => ({
         role: message.role,
         content: message.content,
       })),

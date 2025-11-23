@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import type { User } from "firebase/auth";
+import type { User } from 'firebase/auth';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { getMissingFirebaseEnvVars, isFirebaseConfigured } from "@/lib/services/firebase/config";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { getMissingFirebaseEnvVars, isFirebaseConfigured } from '@/lib/services/firebase/config';
 import {
   SubscriptionTier,
   UserProfile,
@@ -13,7 +13,7 @@ import {
   signOut as firebaseSignOut,
   signUp as firebaseSignUp,
   updateUserTier,
-} from "@/lib/services/firebase/auth";
+} from '@/lib/services/firebase/auth';
 
 interface AuthContextValue {
   user: User | null;
@@ -37,20 +37,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const envErrorMessage =
     missingEnvVars.length > 0
       ? `Firebase environment variables are missing: ${missingEnvVars.join(
-          ", "
+          ', '
         )}. Please update your .env.local file.`
       : null;
 
   useEffect(() => {
     if (!firebaseConfigured) {
       setLoading(false);
-      if (process.env.NODE_ENV !== "production" && envErrorMessage) {
+      if (process.env.NODE_ENV !== 'production' && envErrorMessage) {
         console.warn(envErrorMessage);
       }
       return;
     }
 
-    const unsubscribe = onAuthStateChange(async (firebaseUser) => {
+    const unsubscribe = onAuthStateChange(async firebaseUser => {
       setUser(firebaseUser);
 
       if (firebaseUser) {
@@ -62,14 +62,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             // Fallback profile if Firestore document is missing
             setProfile({
               uid: firebaseUser.uid,
-              email: firebaseUser.email ?? "",
-              tier: "free",
+              email: firebaseUser.email ?? '',
+              tier: 'free',
               displayName: firebaseUser.displayName,
               photoURL: firebaseUser.photoURL,
             });
           }
         } catch (error) {
-          console.error("Failed to load user profile:", error);
+          console.error('Failed to load user profile:', error);
           setProfile(null);
         }
       } else {
@@ -85,7 +85,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = useCallback(
     async (email: string, password: string) => {
       if (!firebaseConfigured) {
-        throw new Error(envErrorMessage ?? "Firebase is not configured.");
+        throw new Error(envErrorMessage ?? 'Firebase is not configured.');
       }
       setLoading(true);
       try {
@@ -100,7 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signUp = useCallback(
     async (email: string, password: string, displayName?: string) => {
       if (!firebaseConfigured) {
-        throw new Error(envErrorMessage ?? "Firebase is not configured.");
+        throw new Error(envErrorMessage ?? 'Firebase is not configured.');
       }
       setLoading(true);
       try {
@@ -117,7 +117,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = useCallback(async () => {
     if (!firebaseConfigured) {
-      throw new Error(envErrorMessage ?? "Firebase is not configured.");
+      throw new Error(envErrorMessage ?? 'Firebase is not configured.');
     }
     setLoading(true);
     try {
@@ -131,14 +131,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const changeTier = useCallback(
     async (nextTier: SubscriptionTier) => {
       if (!firebaseConfigured) {
-        throw new Error(envErrorMessage ?? "Firebase is not configured.");
+        throw new Error(envErrorMessage ?? 'Firebase is not configured.');
       }
       if (!user) {
-        throw new Error("You must be signed in to change subscription tier.");
+        throw new Error('You must be signed in to change subscription tier.');
       }
 
       await updateUserTier(user.uid, nextTier);
-      setProfile((prev) =>
+      setProfile(prev =>
         prev
           ? {
               ...prev,
@@ -170,7 +170,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuthContext(): AuthContextValue {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuthContext must be used within an AuthProvider");
+    throw new Error('useAuthContext must be used within an AuthProvider');
   }
 
   return context;

@@ -2,7 +2,8 @@
 
 ## Overview
 
-This project follows an industry-standard, feature-based architecture optimized for scalability and maintainability.
+This project follows an industry-standard, feature-based architecture optimized
+for scalability and maintainability.
 
 ## Folder Structure
 
@@ -195,22 +196,26 @@ RESTful API endpoints:
 ### Importing Feature Components
 
 ```typescript
-import { ChatEmptyState, ChatMessageList, ChatInputArea } from "@/features/chat";
-import { useChatContext } from "@/features/chat";
-import { useConversations } from "@/features/chat";
+import {
+  ChatEmptyState,
+  ChatMessageList,
+  ChatInputArea,
+} from '@/features/chat';
+import { useChatContext } from '@/features/chat';
+import { useConversations } from '@/features/chat';
 ```
 
 ### Importing Shared Components
 
 ```typescript
-import { DashboardLayout } from "@/components/layout";
-import { Markdown } from "@/components/shared/Markdown";
+import { DashboardLayout } from '@/components/layout';
+import { Markdown } from '@/components/shared/Markdown';
 ```
 
 ### Using State Management
 
 ```typescript
-import { useAuth, useNotes } from "@/store";
+import { useAuth, useNotes } from '@/store';
 
 const { user, login } = useAuth();
 const { notes, addNote } = useNotes();
@@ -219,19 +224,19 @@ const { notes, addNote } = useNotes();
 ### Using Utilities
 
 ```typescript
-import { formatDate } from "@/lib/utils/formatters";
-import { validateEmail } from "@/lib/utils/validators";
-import { AI_MODELS } from "@/lib/constants";
+import { formatDate } from '@/lib/utils/formatters';
+import { validateEmail } from '@/lib/utils/validators';
+import { AI_MODELS } from '@/lib/constants';
 ```
 
 ### API Client
 
 ```typescript
-import apiClient from "@/lib/api/api-client";
-import { conversationAPI } from "@/lib/api/server-client";
+import apiClient from '@/lib/api/api-client';
+import { conversationAPI } from '@/lib/api/server-client';
 
-const notes = await apiClient.get("/notes");
-const chat = await apiClient.post("/chat", { message, model });
+const notes = await apiClient.get('/notes');
+const chat = await apiClient.post('/chat', { message, model });
 const conversations = await conversationAPI.list();
 ```
 
@@ -290,16 +295,22 @@ export const createNewFeatureSlice = (set, get) => ({
 3. **Leverage path aliases** - Cleaner imports
 4. **Centralize utilities** - Reusable functions in `lib/utils`
 5. **Type your code** - Use TypeScript for better IDE support
-6. **Follow naming conventions** - PascalCase for components, camelCase for utilities
-7. **Feature self-containment** - Each feature should be self-contained with its own components, hooks, services, and types
+6. **Follow naming conventions** - PascalCase for components, camelCase for
+   utilities
+7. **Feature self-containment** - Each feature should be self-contained with its
+   own components, hooks, services, and types
 
 ## Architecture Principles
 
-1. **Feature Self-Containment**: Each feature in `src/features/` contains all its components, hooks, services, types, and styles
-2. **Clear Separation**: Shared code in `src/components/`, `src/lib/`, `src/hooks/`; feature code in `src/features/`
-3. **Scalability**: Easy to add new features by creating a new folder in `src/features/`
+1. **Feature Self-Containment**: Each feature in `src/features/` contains all
+   its components, hooks, services, types, and styles
+2. **Clear Separation**: Shared code in `src/components/`, `src/lib/`,
+   `src/hooks/`; feature code in `src/features/`
+3. **Scalability**: Easy to add new features by creating a new folder in
+   `src/features/`
 4. **Consistency**: All features follow the same internal structure
-5. **Route Pages Stay Thin**: Pages in `src/app/` should only compose features, not contain business logic
+5. **Route Pages Stay Thin**: Pages in `src/app/` should only compose features,
+   not contain business logic
 
 ## Migration Notes
 
@@ -309,4 +320,5 @@ export const createNewFeatureSlice = (set, get) => ({
 - Old `src/lib/server-client.ts` → Now `src/lib/api/server-client.ts`
 - Old `src/lib/groqClient.ts` → Now `src/lib/services/ai/groqClient.ts`
 - Old `src/lib/firebase/*` → Now `src/lib/services/firebase/`
-- Old `src/hooks/useConversations.ts` → Now `src/features/chat/hooks/useConversations.ts`
+- Old `src/hooks/useConversations.ts` → Now
+  `src/features/chat/hooks/useConversations.ts`

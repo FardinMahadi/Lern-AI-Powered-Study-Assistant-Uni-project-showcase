@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-Lern is a full-stack AI-powered study assistant built with Next.js, Material-UI, Firebase, and Node.js/PostgreSQL backend. It provides intelligent conversation-based learning with persistent storage.
+Lern is a full-stack AI-powered study assistant built with Next.js, Material-UI,
+Firebase, and Node.js/PostgreSQL backend. It provides intelligent
+conversation-based learning with persistent storage.
 
 ## ✅ Completed Tasks
 
@@ -467,5 +469,5 @@ MIT License - See LICENSE file for details
 
 ---
 
-**Last Updated**: November 12, 2025
-**Status**: ✅ Complete - Ready for Development & Deployment
+**Last Updated**: November 12, 2025 **Status**: ✅ Complete - Ready for
+Development & Deployment

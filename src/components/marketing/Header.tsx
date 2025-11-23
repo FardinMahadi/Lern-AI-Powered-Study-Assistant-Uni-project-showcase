@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { alpha } from "@mui/material/styles";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import React, { useState } from 'react';
+import { alpha } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   AppBar,
   Toolbar,
@@ -18,16 +18,16 @@ import {
   useScrollTrigger,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
+} from '@mui/material';
 
 const CTA = () => (
   <Button
     variant="contained"
     color="primary"
     sx={{
-      textTransform: "none",
+      textTransform: 'none',
       fontWeight: 600,
-      fontSize: "0.95rem",
+      fontSize: '0.95rem',
       px: 2.5,
       py: 1,
       borderRadius: 2.5,
@@ -40,19 +40,19 @@ const CTA = () => (
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
   });
 
-  const isLight = theme.palette.mode === "light";
+  const isLight = theme.palette.mode === 'light';
 
   const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Chat", href: "/chat" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "About", href: "/about" },
+    { label: 'Home', href: '/' },
+    { label: 'Chat', href: '/chat' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'About', href: '/about' },
   ];
 
   const handleDrawerToggle = () => {
@@ -61,13 +61,13 @@ const Header = () => {
 
   const drawer = (
     <Box sx={{ width: 250 }} role="presentation">
-      <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
         <IconButton onClick={handleDrawerToggle} aria-label="close menu">
           <CloseIcon />
         </IconButton>
       </Box>
       <List>
-        {navItems.map((item) => (
+        {navItems.map(item => (
           <ListItem key={item.label} disablePadding>
             <ListItemButton
               component="a"
@@ -75,7 +75,7 @@ const Header = () => {
               onClick={handleDrawerToggle}
               sx={{
                 py: 1,
-                "&:hover": {
+                '&:hover': {
                   backgroundColor: alpha(theme.palette.text.primary, isLight ? 0.08 : 0.08),
                 },
               }}
@@ -83,9 +83,9 @@ const Header = () => {
               <ListItemText
                 primary={item.label}
                 primaryTypographyProps={{
-                  fontSize: "0.95rem",
+                  fontSize: '0.95rem',
                   fontWeight: 500,
-                  letterSpacing: "0.01em",
+                  letterSpacing: '0.01em',
                 }}
               />
             </ListItemButton>
@@ -107,22 +107,22 @@ const Header = () => {
           backgroundColor: trigger
             ? alpha(theme.palette.background.default, isLight ? 0.8 : 0.5)
             : alpha(theme.palette.background.default, isLight ? 0.95 : 0.8),
-          backdropFilter: trigger ? "blur(10px)" : undefined,
-          border: trigger ? `1px solid ${alpha(theme.palette.primary.main, 0.5)}` : "none",
+          backdropFilter: trigger ? 'blur(10px)' : undefined,
+          border: trigger ? `1px solid ${alpha(theme.palette.primary.main, 0.5)}` : 'none',
           borderBottom: `1px solid ${alpha(theme.palette.primary.main, isLight ? 0.2 : 0.5)}`,
-          borderRadius: trigger ? "14px" : "0",
-          maxWidth: trigger ? "calc(100% - 32px)" : "100%",
-          top: trigger ? "8px" : 0,
-          left: trigger ? "16px" : "0",
-          right: trigger ? "16px" : "0",
-          transition: "all 0.3s ease-in-out",
+          borderRadius: trigger ? '14px' : '0',
+          maxWidth: trigger ? 'calc(100% - 32px)' : '100%',
+          top: trigger ? '8px' : 0,
+          left: trigger ? '16px' : '0',
+          right: trigger ? '16px' : '0',
+          transition: 'all 0.3s ease-in-out',
         }}
       >
         <Container maxWidth="lg">
           <Toolbar
             disableGutters
             sx={{
-              justifyContent: "space-between",
+              justifyContent: 'space-between',
               minHeight: { xs: 64, md: 68 },
               gap: { xs: 2, md: 0 },
             }}
@@ -132,16 +132,16 @@ const Header = () => {
               component="a"
               href="/"
               sx={{
-                display: "flex",
-                alignItems: "center",
+                display: 'flex',
+                alignItems: 'center',
                 gap: 1.5,
-                textDecoration: "none",
-                color: "inherit",
-                "&:hover": {
-                  "& img": {
-                    transform: "scale(1.1)",
+                textDecoration: 'none',
+                color: 'inherit',
+                '&:hover': {
+                  '& img': {
+                    transform: 'scale(1.1)',
                   },
-                  "& .brand-name": {
+                  '& .brand-name': {
                     color: alpha(theme.palette.text.primary, 0.7),
                   },
                 },
@@ -154,18 +154,18 @@ const Header = () => {
                 sx={{
                   height: 32,
                   width: 32,
-                  transition: "transform 0.3s ease",
+                  transition: 'transform 0.3s ease',
                 }}
               />
               <Box
                 component="span"
                 className="brand-name"
                 sx={{
-                  fontSize: "1.35rem",
+                  fontSize: '1.35rem',
                   fontWeight: 700,
                   color: theme.palette.text.primary,
-                  transition: "color 0.2s ease",
-                  letterSpacing: "-0.02em",
+                  transition: 'color 0.2s ease',
+                  letterSpacing: '-0.02em',
                 }}
               >
                 Lern
@@ -175,14 +175,14 @@ const Header = () => {
                 size="small"
                 sx={{
                   height: 20,
-                  fontSize: "0.65rem",
+                  fontSize: '0.65rem',
                   fontWeight: 600,
                   backgroundColor: alpha(theme.palette.secondary.main, isLight ? 0.15 : 0.1),
                   color: theme.palette.secondary.light,
                   border: `1px solid ${alpha(theme.palette.secondary.light, isLight ? 0.4 : 0.6)}`,
                   boxShadow: `0 0 8px ${alpha(theme.palette.secondary.light, isLight ? 0.15 : 0.2)}`,
-                  transition: "all 0.3s ease",
-                  "&:hover": {
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
                     borderColor: theme.palette.secondary.light,
                     backgroundColor: alpha(theme.palette.secondary.main, isLight ? 0.2 : 0.15),
                   },
@@ -192,22 +192,22 @@ const Header = () => {
 
             {/* Desktop Navigation */}
             {!isMobile && (
-              <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-                {navItems.map((item) => (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+                {navItems.map(item => (
                   <Button
                     key={item.label}
                     href={item.href}
                     sx={{
                       color: alpha(theme.palette.text.primary, 0.7),
-                      textTransform: "none",
-                      fontSize: "0.95rem",
+                      textTransform: 'none',
+                      fontSize: '0.95rem',
                       fontWeight: 500,
-                      letterSpacing: "0.01em",
+                      letterSpacing: '0.01em',
                       px: 1,
                       py: 0.5,
-                      "&:hover": {
+                      '&:hover': {
                         color: alpha(theme.palette.text.primary, 0.9),
-                        backgroundColor: "transparent",
+                        backgroundColor: 'transparent',
                       },
                     }}
                   >
@@ -218,7 +218,7 @@ const Header = () => {
             )}
 
             {/* CTA and Mobile Menu Button */}
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               {!isMobile && <CTA />}
               {isMobile && (
                 <IconButton
@@ -241,7 +241,7 @@ const Header = () => {
         open={mobileOpen}
         onClose={handleDrawerToggle}
         sx={{
-          "& .MuiDrawer-paper": {
+          '& .MuiDrawer-paper': {
             backgroundColor: theme.palette.background.paper,
             color: theme.palette.text.primary,
           },

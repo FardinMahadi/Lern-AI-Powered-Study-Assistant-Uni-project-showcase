@@ -1,6 +1,8 @@
 # Lern – AI-Powered Study Assistant
 
-**Lern** is a modern, full-stack AI-powered study assistant built with Next.js, Material-UI, Firebase, and Groq AI. It provides intelligent conversational learning with persistent conversation storage.
+**Lern** is a modern, full-stack AI-powered study assistant built with Next.js,
+Material-UI, Firebase, and Groq AI. It provides intelligent conversational
+learning with persistent conversation storage.
 
 ---
 
@@ -92,7 +94,8 @@
 
 ### 1️⃣ Landing Page
 
-> **Purpose:** Public-facing page to introduce the app and convert visitors to users.
+> **Purpose:** Public-facing page to introduce the app and convert visitors to
+> users.
 
 #### Sections:
 

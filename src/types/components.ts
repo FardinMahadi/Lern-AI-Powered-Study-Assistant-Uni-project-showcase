@@ -1,11 +1,11 @@
 // Component prop type definitions
 
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
-  size?: "sm" | "md" | "lg";
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
 }
 
@@ -29,7 +29,7 @@ export interface ModalProps {
 
 export interface ToastProps {
   message: string;
-  type?: "info" | "success" | "warning" | "error";
+  type?: 'info' | 'success' | 'warning' | 'error';
   duration?: number;
   onClose: () => void;
 }

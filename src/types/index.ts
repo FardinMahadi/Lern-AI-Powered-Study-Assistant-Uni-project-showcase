@@ -22,7 +22,7 @@ export interface Note {
 
 export interface Message {
   id: number | string;
-  role: "user" | "assistant" | "system";
+  role: 'user' | 'assistant' | 'system';
   content: string;
   model?: string;
   timestamp: Date;
@@ -45,8 +45,8 @@ export interface AIModel {
   description?: string;
 }
 
-export type NoteCategory = "General" | "Study" | "Work" | "Personal" | "Research";
+export type NoteCategory = 'General' | 'Study' | 'Work' | 'Personal' | 'Research';
 
-export type MessageRole = "user" | "assistant" | "system";
+export type MessageRole = 'user' | 'assistant' | 'system';
 
-export type ToastType = "info" | "success" | "warning" | "error";
+export type ToastType = 'info' | 'success' | 'warning' | 'error';

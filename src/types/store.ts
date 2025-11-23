@@ -1,6 +1,6 @@
 // Store type definitions
 
-import { User, Note, Message, Conversation } from "./index";
+import { User, Note, Message, Conversation } from './index';
 
 export interface AuthState {
   user: User | null;

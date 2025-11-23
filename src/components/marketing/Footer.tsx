@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import "./styles/Particles.css";
+import './styles/Particles.css';
 
-import Image from "next/image";
-import { useEffect, useRef } from "react";
-import ShinyText from "@/components/shared/ShinyText";
-import { useTheme, alpha } from "@mui/material/styles";
-import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
-import { Box, Typography, Link as MuiLink, Divider } from "@mui/material";
+import Image from 'next/image';
+import { useEffect, useRef } from 'react';
+import ShinyText from '@/components/shared/ShinyText';
+import { useTheme, alpha } from '@mui/material/styles';
+import { Renderer, Camera, Geometry, Program, Mesh } from 'ogl';
+import { Box, Typography, Link as MuiLink, Divider } from '@mui/material';
 
 const Footer = () => {
   const theme = useTheme();
-  const isLight = theme.palette.mode === "light";
+  const isLight = theme.palette.mode === 'light';
 
   return (
     <Box
@@ -19,15 +19,15 @@ const Footer = () => {
       sx={{
         color: theme.palette.text.secondary,
         py: 6,
-        position: "relative",
-        overflowX: "hidden",
+        position: 'relative',
+        overflowX: 'hidden',
       }}
     >
       <Box
         sx={{
-          height: "100%",
-          width: "100%",
-          position: "absolute",
+          height: '100%',
+          width: '100%',
+          position: 'absolute',
           zIndex: 1,
         }}
       >
@@ -48,22 +48,22 @@ const Footer = () => {
       </Box>
       <Box
         sx={{
-          maxWidth: "7xl",
-          mx: "auto",
+          maxWidth: '7xl',
+          mx: 'auto',
           px: 4,
-          position: "relative",
+          position: 'relative',
           zIndex: 10,
         }}
       >
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
             gap: 8,
           }}
         >
           <Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
               <Image
                 src="/images/logo.png"
                 alt="Lern Logo"
@@ -76,7 +76,7 @@ const Footer = () => {
                 sx={{
                   color: theme.palette.text.primary,
                   fontWeight: 600,
-                  letterSpacing: "-0.02em",
+                  letterSpacing: '-0.02em',
                 }}
               >
                 Lern
@@ -86,9 +86,9 @@ const Footer = () => {
                 sx={{
                   p: 2,
                   border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
-                  borderRadius: "999px",
-                  transform: "scale(0.75)",
-                  fontSize: "0.75rem",
+                  borderRadius: '999px',
+                  transform: 'scale(0.75)',
+                  fontSize: '0.75rem',
                 }}
               >
                 Beta
@@ -111,7 +111,7 @@ const Footer = () => {
                 color: theme.palette.text.primary,
                 fontWeight: 600,
                 mb: 3,
-                letterSpacing: "-0.02em",
+                letterSpacing: '-0.02em',
               }}
             >
               Quick Links
@@ -119,11 +119,11 @@ const Footer = () => {
             <Box
               component="ul"
               sx={{
-                listStyle: "none",
+                listStyle: 'none',
                 p: 0,
                 m: 0,
-                display: "flex",
-                flexDirection: "column",
+                display: 'flex',
+                flexDirection: 'column',
                 gap: 2,
               }}
             >
@@ -132,11 +132,11 @@ const Footer = () => {
                   href="/about"
                   sx={{
                     color: theme.palette.text.secondary,
-                    textDecoration: "none",
-                    "&:hover": {
+                    textDecoration: 'none',
+                    '&:hover': {
                       color: theme.palette.text.primary,
                     },
-                    transition: "color 0.2s ease",
+                    transition: 'color 0.2s ease',
                   }}
                 >
                   About Us
@@ -147,11 +147,11 @@ const Footer = () => {
                   href="/courses"
                   sx={{
                     color: theme.palette.text.secondary,
-                    textDecoration: "none",
-                    "&:hover": {
+                    textDecoration: 'none',
+                    '&:hover': {
                       color: theme.palette.text.primary,
                     },
-                    transition: "color 0.2s ease",
+                    transition: 'color 0.2s ease',
                   }}
                 >
                   Courses
@@ -162,11 +162,11 @@ const Footer = () => {
                   href="/contact"
                   sx={{
                     color: theme.palette.text.secondary,
-                    textDecoration: "none",
-                    "&:hover": {
+                    textDecoration: 'none',
+                    '&:hover': {
                       color: theme.palette.text.primary,
                     },
-                    transition: "color 0.2s ease",
+                    transition: 'color 0.2s ease',
                   }}
                 >
                   Contact
@@ -181,13 +181,13 @@ const Footer = () => {
                 color: theme.palette.text.primary,
                 fontWeight: 600,
                 mb: 3,
-                letterSpacing: "-0.02em",
+                letterSpacing: '-0.02em',
               }}
             >
               Contact
             </Typography>
             <Typography variant="body2" sx={{ mb: 1, color: theme.palette.text.secondary }}>
-              Email:{" "}
+              Email:{' '}
               <ShinyText
                 text="mahadihasanfardin2015@gmail.com"
                 disabled={false}
@@ -196,7 +196,7 @@ const Footer = () => {
               />
             </Typography>
             <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
-              Phone:{" "}
+              Phone:{' '}
               <ShinyText
                 text="+88 01540159331"
                 disabled={false}
@@ -216,7 +216,7 @@ const Footer = () => {
         <Typography
           variant="body2"
           sx={{
-            textAlign: "center",
+            textAlign: 'center',
             color: theme.palette.text.secondary,
           }}
         >
@@ -229,15 +229,15 @@ const Footer = () => {
 
 export default Footer;
 
-const defaultColors = ["#ffffff", "#ffffff", "#ffffff"];
+const defaultColors = ['#ffffff', '#ffffff', '#ffffff'];
 
 const hexToRgb = (hex: string): [number, number, number] => {
-  hex = hex.replace(/^#/, "");
+  hex = hex.replace(/^#/, '');
   if (hex.length === 3) {
     hex = hex
-      .split("")
-      .map((c) => c + c)
-      .join("");
+      .split('')
+      .map(c => c + c)
+      .join('');
   }
   const int = parseInt(hex, 16);
   const r = ((int >> 16) & 255) / 255;
@@ -332,7 +332,7 @@ const Particles: React.FC<ParticlesProps> = ({
   sizeRandomness = 1,
   cameraDistance = 20,
   disableRotation = false,
-  className = "",
+  className = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -355,7 +355,7 @@ const Particles: React.FC<ParticlesProps> = ({
       renderer.setSize(width, height);
       camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
     };
-    window.addEventListener("resize", resize, false);
+    window.addEventListener('resize', resize, false);
     resize();
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -366,7 +366,7 @@ const Particles: React.FC<ParticlesProps> = ({
     };
 
     if (moveParticlesOnHover) {
-      container.addEventListener("mousemove", handleMouseMove);
+      container.addEventListener('mousemove', handleMouseMove);
     }
 
     const count = particleCount;
@@ -444,9 +444,9 @@ const Particles: React.FC<ParticlesProps> = ({
     animationFrameId = requestAnimationFrame(update);
 
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener('resize', resize);
       if (moveParticlesOnHover) {
-        container.removeEventListener("mousemove", handleMouseMove);
+        container.removeEventListener('mousemove', handleMouseMove);
       }
       cancelAnimationFrame(animationFrameId);
       if (container.contains(gl.canvas)) {

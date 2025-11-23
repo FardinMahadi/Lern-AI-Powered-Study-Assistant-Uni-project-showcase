@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lexend:wght@300;400;500;600;700&display=swap");
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lexend:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
 
 /* Dark theme (default) */
 :root,
-[data-theme="dark"] {
+[data-theme='dark'] {
   --background: #0a0a0a;
   --background-light: #1a1a1a;
   --background-dark: #000000;
@@ -40,7 +40,7 @@
 }
 
 /* Light theme */
-[data-theme="light"] {
+[data-theme='light'] {
   --background: #f5f9fc;
   --background-light: #ffffff;
   --background-dark: #e5eef5;
@@ -78,8 +78,8 @@
 
 /* Font families */
 :root {
-  --font-heading: "Sora", system-ui, -apple-system, sans-serif;
-  --font-body: "Lexend", system-ui, -apple-system, sans-serif;
+  --font-heading: 'Sora', system-ui, -apple-system, sans-serif;
+  --font-body: 'Lexend', system-ui, -apple-system, sans-serif;
 
   /* Typography scale */
   --fs-display-lg: clamp(2.5rem, 4vw + 1rem, 3.25rem);

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { CssBaseline, PaletteMode } from "@mui/material";
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { CssBaseline, PaletteMode } from '@mui/material';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import {
   ThemeProvider as MuiThemeProvider,
   Theme,
   createTheme,
   responsiveFontSizes,
-} from "@mui/material/styles";
+} from '@mui/material/styles';
 
-import { typography } from "./typography";
-import { BRAND_COLORS, darkPalette, lightPalette } from "./palette";
+import { typography } from './typography';
+import { BRAND_COLORS, darkPalette, lightPalette } from './palette';
 
 export interface ColorModeContextValue {
   mode: PaletteMode;
@@ -19,16 +19,16 @@ export interface ColorModeContextValue {
 }
 
 export const ColorModeContext = createContext<ColorModeContextValue>({
-  mode: "light",
+  mode: 'light',
   setMode: () => undefined,
   toggleColorMode: () => undefined,
 });
 
-const STORAGE_KEY = "lern-color-mode";
+const STORAGE_KEY = 'lern-color-mode';
 
 const buildTheme = (mode: PaletteMode): Theme => {
-  const palette = mode === "light" ? lightPalette : darkPalette;
-  const isLight = mode === "light";
+  const palette = mode === 'light' ? lightPalette : darkPalette;
+  const isLight = mode === 'light';
 
   return responsiveFontSizes(
     createTheme({
@@ -42,9 +42,9 @@ const buildTheme = (mode: PaletteMode): Theme => {
           styleOverrides: {
             root: {
               borderRadius: 999,
-              paddingInline: "1.5rem",
-              paddingBlock: "0.75rem",
-              boxShadow: "none",
+              paddingInline: '1.5rem',
+              paddingBlock: '0.75rem',
+              boxShadow: 'none',
             },
             containedPrimary: {
               color: isLight ? BRAND_COLORS.neutralDark : BRAND_COLORS.neutralLight,
@@ -53,7 +53,7 @@ const buildTheme = (mode: PaletteMode): Theme => {
         },
         MuiAppBar: {
           defaultProps: {
-            color: "transparent",
+            color: 'transparent',
             elevation: 0,
           },
         },
@@ -61,7 +61,7 @@ const buildTheme = (mode: PaletteMode): Theme => {
           styleOverrides: {
             root: {
               borderRadius: 20,
-              backgroundImage: "none",
+              backgroundImage: 'none',
             },
           },
         },
@@ -75,7 +75,7 @@ const buildTheme = (mode: PaletteMode): Theme => {
         },
         MuiLink: {
           defaultProps: {
-            underline: "hover",
+            underline: 'hover',
           },
         },
         MuiIconButton: {
@@ -119,11 +119,11 @@ const buildTheme = (mode: PaletteMode): Theme => {
         },
       },
       shadows: [
-        "none",
-        "0px 10px 30px rgba(15, 23, 42, 0.07)",
-        "0px 20px 40px rgba(15, 23, 42, 0.08)",
-        ...Array(22).fill("0px 24px 40px rgba(15, 23, 42, 0.1)"),
-      ] as Theme["shadows"],
+        'none',
+        '0px 10px 30px rgba(15, 23, 42, 0.07)',
+        '0px 20px 40px rgba(15, 23, 42, 0.08)',
+        ...Array(22).fill('0px 24px 40px rgba(15, 23, 42, 0.1)'),
+      ] as Theme['shadows'],
     })
   );
 };
@@ -133,7 +133,7 @@ type AppThemeProviderProps = {
   children: React.ReactNode;
 };
 
-export function AppThemeProvider({ initialMode = "light", children }: AppThemeProviderProps) {
+export function AppThemeProvider({ initialMode = 'light', children }: AppThemeProviderProps) {
   const [mounted, setMounted] = useState(false);
   const [mode, setMode] = useState<PaletteMode>(initialMode);
 
@@ -148,22 +148,22 @@ export function AppThemeProvider({ initialMode = "light", children }: AppThemePr
 
   // Sync data-theme attribute with mode
   useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("data-theme", mode);
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', mode);
     }
   }, [mode]);
 
   const handleSetMode = useCallback((nextMode: PaletteMode) => {
     setMode(nextMode);
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       window.localStorage.setItem(STORAGE_KEY, nextMode);
     }
   }, []);
 
   const toggleColorMode = useCallback(() => {
-    setMode((prevMode) => {
-      const next = prevMode === "light" ? "dark" : "light";
-      if (typeof window !== "undefined") {
+    setMode(prevMode => {
+      const next = prevMode === 'light' ? 'dark' : 'light';
+      if (typeof window !== 'undefined') {
         window.localStorage.setItem(STORAGE_KEY, next);
       }
       return next;
@@ -206,9 +206,9 @@ export function AppThemeProvider({ initialMode = "light", children }: AppThemePr
 export function useColorMode() {
   const context = useContext(ColorModeContext);
   if (!context) {
-    throw new Error("useColorMode must be used within an AppThemeProvider");
+    throw new Error('useColorMode must be used within an AppThemeProvider');
   }
   return context;
 }
 
-export { BRAND_COLORS } from "./palette";
+export { BRAND_COLORS } from './palette';

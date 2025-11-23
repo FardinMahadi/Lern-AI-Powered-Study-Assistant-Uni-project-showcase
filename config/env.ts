@@ -8,15 +8,15 @@ export const validateEnv = (): boolean => {
     // 'OPENAI_API_KEY',
   ];
 
-  const missingEnvVars = requiredEnvVars.filter((envVar) => !process.env[envVar]);
+  const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
 
   if (missingEnvVars.length > 0) {
-    console.warn(`Warning: Missing environment variables: ${missingEnvVars.join(", ")}`);
+    console.warn(`Warning: Missing environment variables: ${missingEnvVars.join(', ')}`);
   }
 
   return missingEnvVars.length === 0;
 };
 
-export const getEnv = (key: string, defaultValue: string = ""): string => {
+export const getEnv = (key: string, defaultValue: string = ''): string => {
   return process.env[key] || defaultValue;
 };

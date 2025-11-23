@@ -1,6 +1,7 @@
 # Lern Project Documentation
 
-Welcome to the Lern documentation! This guide covers setup, architecture, authentication, and guidance for scaling the project.
+Welcome to the Lern documentation! This guide covers setup, architecture,
+authentication, and guidance for scaling the project.
 
 ## Table of Contents
 
@@ -102,7 +103,8 @@ lern/
 
 ## Authentication & Authorization
 
-Lern uses **Firebase Authentication** with **Firestore** for user profiles and a **tiered subscription system** (Free, Pro, Advanced).
+Lern uses **Firebase Authentication** with **Firestore** for user profiles and a
+**tiered subscription system** (Free, Pro, Advanced).
 
 ### Authentication Flow
 
@@ -124,21 +126,22 @@ Lern uses **Firebase Authentication** with **Firestore** for user profiles and a
 
 - **Firebase Auth**: Handles user registration, login, password reset
 - **Firestore**: Stores user profiles with `tier`, `displayName`, `email`
-- **Auth Context** (`src/features/auth/context/AuthContext.tsx`): Global state management
+- **Auth Context** (`src/features/auth/context/AuthContext.tsx`): Global state
+  management
 - **Protected Routes**: Check auth + tier for feature access
 - **Tier Enforcement**: Applied in API routes via custom middleware
 
 ### Using Auth in Components
 
 ```tsx
-import { useAuthContext } from "@/features/auth/context/AuthContext";
+import { useAuthContext } from '@/features/auth/context/AuthContext';
 
 export function MyComponent() {
   const { user, profile, tier, signOut } = useAuthContext();
 
   if (!user) return <div>Sign in required</div>;
 
-  const isPro = tier === "pro" || tier === "advanced";
+  const isPro = tier === 'pro' || tier === 'advanced';
   return (
     <div>
       <p>Logged in as: {profile?.displayName}</p>
@@ -221,7 +224,8 @@ NEXT_PUBLIC_API_URL=http://localhost:3001
 ### 4. Markdown Components
 
 - **Location**: `src/app/(dashboard)/chat/markdownComponents.tsx`
-- **Renders**: Headers, lists, code blocks (with language labels), tables, blockquotes
+- **Renders**: Headers, lists, code blocks (with language labels), tables,
+  blockquotes
 
 ---
 

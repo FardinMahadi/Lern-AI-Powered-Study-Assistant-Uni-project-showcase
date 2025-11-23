@@ -1,20 +1,20 @@
-import { motion } from "framer-motion";
-import { DecryptedTextProps } from "@/types/shared";
-import { type CSSProperties, useEffect, useRef, useState } from "react";
+import { motion } from 'framer-motion';
+import { DecryptedTextProps } from '@/types/shared';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
 
 const styles: { [key: string]: CSSProperties } = {
   wrapper: {
-    display: "inline-block",
-    whiteSpace: "pre-wrap",
+    display: 'inline-block',
+    whiteSpace: 'pre-wrap',
   },
   srOnly: {
-    position: "absolute",
-    width: "1px",
-    height: "1px",
+    position: 'absolute',
+    width: '1px',
+    height: '1px',
     padding: 0,
-    margin: "-1px",
-    overflow: "hidden",
-    clip: "rect(0,0,0,0)",
+    margin: '-1px',
+    overflow: 'hidden',
+    clip: 'rect(0,0,0,0)',
     border: 0,
   },
 };
@@ -24,13 +24,13 @@ export default function DecryptedText({
   speed = 50,
   maxIterations = 10,
   sequential = false,
-  revealDirection = "start",
+  revealDirection = 'start',
   useOriginalCharsOnly = false,
-  characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+",
-  className = "",
-  parentClassName = "",
-  encryptedClassName = "",
-  animateOn = "hover",
+  characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+',
+  className = '',
+  parentClassName = '',
+  encryptedClassName = '',
+  animateOn = 'hover',
   ...props
 }: DecryptedTextProps) {
   const [displayText, setDisplayText] = useState(text);
@@ -47,11 +47,11 @@ export default function DecryptedText({
     const getNextIndex = (revealedSet: Set<number>): number => {
       const textLength = text.length;
       switch (revealDirection) {
-        case "start":
+        case 'start':
           return revealedSet.size;
-        case "end":
+        case 'end':
           return textLength - 1 - revealedSet.size;
-        case "center": {
+        case 'center': {
           const middle = Math.floor(textLength / 2);
           const offset = Math.floor(revealedSet.size / 2);
           const nextIndex = revealedSet.size % 2 === 0 ? middle + offset : middle - offset - 1;
@@ -71,21 +71,19 @@ export default function DecryptedText({
     };
 
     const availableChars = useOriginalCharsOnly
-      ? Array.from(new Set(text.split(""))).filter((char) => char !== " ")
-      : characters.split("");
+      ? Array.from(new Set(text.split(''))).filter(char => char !== ' ')
+      : characters.split('');
 
     const shuffleText = (originalText: string, currentRevealed: Set<number>): string => {
       if (useOriginalCharsOnly) {
-        const positions = originalText.split("").map((char, i) => ({
+        const positions = originalText.split('').map((char, i) => ({
           char,
-          isSpace: char === " ",
+          isSpace: char === ' ',
           index: i,
           isRevealed: currentRevealed.has(i),
         }));
 
-        const nonSpaceChars = positions
-          .filter((p) => !p.isSpace && !p.isRevealed)
-          .map((p) => p.char);
+        const nonSpaceChars = positions.filter(p => !p.isSpace && !p.isRevealed).map(p => p.char);
 
         for (let i = nonSpaceChars.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -94,28 +92,28 @@ export default function DecryptedText({
 
         let charIndex = 0;
         return positions
-          .map((p) => {
-            if (p.isSpace) return " ";
+          .map(p => {
+            if (p.isSpace) return ' ';
             if (p.isRevealed) return originalText[p.index];
             return nonSpaceChars[charIndex++];
           })
-          .join("");
+          .join('');
       } else {
         return originalText
-          .split("")
+          .split('')
           .map((char, i) => {
-            if (char === " ") return " ";
+            if (char === ' ') return ' ';
             if (currentRevealed.has(i)) return originalText[i];
             return availableChars[Math.floor(Math.random() * availableChars.length)];
           })
-          .join("");
+          .join('');
       }
     };
 
     if (isHovering) {
       setIsScrambling(true);
       interval = setInterval(() => {
-        setRevealedIndices((prevRevealed) => {
+        setRevealedIndices(prevRevealed => {
           if (sequential) {
             if (prevRevealed.size < text.length) {
               const nextIndex = getNextIndex(prevRevealed);
@@ -161,10 +159,10 @@ export default function DecryptedText({
   ]);
 
   useEffect(() => {
-    if (animateOn !== "view") return;
+    if (animateOn !== 'view') return;
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting && !hasAnimated) {
           setIsHovering(true); // trigger the decrypteion
           setHasAnimated(true); // ensure it runs only once
@@ -174,7 +172,7 @@ export default function DecryptedText({
 
     const observerOptions = {
       root: null,
-      rootMargin: "0px",
+      rootMargin: '0px',
       threshold: 0.1,
     };
 
@@ -192,7 +190,7 @@ export default function DecryptedText({
   }, [animateOn, hasAnimated]);
 
   const hoverProps =
-    animateOn === "hover"
+    animateOn === 'hover'
       ? {
           onMouseEnter: () => setIsHovering(true),
           onMouseLeave: () => setIsHovering(false),
@@ -210,7 +208,7 @@ export default function DecryptedText({
       <span style={styles.srOnly}>{displayText}</span>
 
       <span aria-hidden="true">
-        {displayText.split("").map((char, index) => {
+        {displayText.split('').map((char, index) => {
           const isRevealedOrDone = revealedIndices.has(index) || !isScrambling || !isHovering;
 
           return (

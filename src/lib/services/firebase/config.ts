@@ -1,15 +1,15 @@
-import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
-import { getFirestore } from "firebase/firestore";
-import { FirebaseApp, FirebaseOptions, getApp, getApps, initializeApp } from "firebase/app";
+import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
+import { getFirestore } from 'firebase/firestore';
+import { FirebaseApp, FirebaseOptions, getApp, getApps, initializeApp } from 'firebase/app';
 
 export const REQUIRED_FIREBASE_ENV_VARS = [
-  "NEXT_PUBLIC_FIREBASE_API_KEY",
-  "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN",
-  "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
-  "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET",
-  "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID",
-  "NEXT_PUBLIC_FIREBASE_APP_ID",
+  'NEXT_PUBLIC_FIREBASE_API_KEY',
+  'NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN',
+  'NEXT_PUBLIC_FIREBASE_PROJECT_ID',
+  'NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET',
+  'NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID',
+  'NEXT_PUBLIC_FIREBASE_APP_ID',
 ] as const;
 
 const firebaseConfig: FirebaseOptions = {
@@ -21,7 +21,7 @@ const firebaseConfig: FirebaseOptions = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const getMissingEnvVars = () => REQUIRED_FIREBASE_ENV_VARS.filter((key) => !process.env[key]);
+const getMissingEnvVars = () => REQUIRED_FIREBASE_ENV_VARS.filter(key => !process.env[key]);
 
 let firebaseApp: FirebaseApp | null = null;
 
@@ -35,7 +35,7 @@ const ensureFirebaseApp = (): FirebaseApp => {
     if (missing.length > 0) {
       throw new Error(
         `Firebase environment variables are missing: ${missing.join(
-          ", "
+          ', '
         )}. Please populate them in your environment.`
       );
     }

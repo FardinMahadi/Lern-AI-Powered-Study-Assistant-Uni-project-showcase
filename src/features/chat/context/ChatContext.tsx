@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Message } from "@/types";
-import { createContext, useContext, useState, useCallback, ReactNode, useMemo } from "react";
+import { Message } from '@/types';
+import { createContext, useContext, useState, useCallback, ReactNode, useMemo } from 'react';
 
 interface ChatContextValue {
   messages: Message[];
@@ -20,16 +20,16 @@ const ChatContext = createContext<ChatContextValue | undefined>(undefined);
 
 export function ChatProvider({ children }: { children: ReactNode }) {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
+  const [input, setInput] = useState('');
+  const [selectedModel, setSelectedModel] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const addMessage = useCallback((message: Message) => {
-    setMessages((prev) => [...prev, message]);
+    setMessages(prev => [...prev, message]);
   }, []);
 
   const addMessages = useCallback((newMessages: Message[]) => {
-    setMessages((prev) => [...prev, ...newMessages]);
+    setMessages(prev => [...prev, ...newMessages]);
   }, []);
 
   const clearMessages = useCallback(() => {
@@ -58,7 +58,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 export function useChatContext(): ChatContextValue {
   const context = useContext(ChatContext);
   if (!context) {
-    throw new Error("useChatContext must be used within a ChatProvider");
+    throw new Error('useChatContext must be used within a ChatProvider');
   }
   return context;
 }
